@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 const url = 'https://youtube-to-mp32.p.rapidapi.com/yt_to_mp3?video_id='
 
 @Injectable()
-export class youTubeDownloadService {
+export class YouTubeDownloadService {
   getYouTubeDownloadLink = (videoId) =>
     fetch(`${url}${videoId}`, {
       "method": "GET",

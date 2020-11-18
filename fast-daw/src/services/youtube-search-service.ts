@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 const url = 'https://youtube-search-results.p.rapidapi.com/youtube-search/?q='
 
 @Injectable()
-export class youTubeSearchService {
+export class YouTubeSearchService {
   getYouTubeSearchResults = (searchQuery) =>
     fetch(`${url}${searchQuery}`, {
       "method": "GET",
