@@ -1,1 +1,15 @@
-<p>youtube-download works!</p>
+<div>
+  <mat-form-field class="example-form-field">
+    <mat-label>YouTube URL</mat-label>
+    <input matInput type="text" [(ngModel)]="value">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>X</mat-icon>
+    </button>
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Search" (click)="getYouTubeDownloadLink()">
+      <mat-icon>Get Download Link</mat-icon>
+    </button>
+  </mat-form-field>
+  <div *ngIf="downloadLink" class="download-link">
+    <a href="{{downloadLink}}" target="_blank">Download: {{downloadTitle}}</a>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 
 @Component({
   selector: 'app-youtube-download',
@@ -7,9 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class YoutubeDownloadComponent implements OnInit {
 
-  constructor() { }
+  value = ''
+  youTubeSearchResults = []
+  downloadLink = ''
+  downloadTitle = ''
+
+  constructor(private youTubeDownloadService: YouTubeDownloadService) { }
 
   ngOnInit(): void {
   }
 
+  getYouTubeDownloadLink = () => {
+    const videoId = this.getYouTubeId(this.value);
+    this.youTubeDownloadService.getYouTubeDownloadLink(videoId)
+      .then(result => {
+        this.downloadLink = result.Download_url;
+        this.downloadTitle = result.Title;
+      })
+  }
+
+  getYouTubeId = (url) => {
+    var ID = '';
+    url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if(url[2] !== undefined) {
+      ID = url[2].split(/[^0-9a-z_\-]/i);
+      ID = ID[0];
+    }
+    else {
+      ID = url;
+    }
+      return ID;
+  }
+  
 }
