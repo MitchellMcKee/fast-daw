@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account/account.component';
 import { DawEditorComponent } from './daw/daw-editor/daw-editor.component';
-import { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
-import { YoutubeDownloadComponent } from './daw/youtube-download/youtube-download.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -26,7 +24,5 @@ export const routingComponents = [
   LoginComponent, 
   RegisterComponent,
   AccountComponent,
-  DawEditorComponent,
-  YoutubeSearchComponent,
-  YoutubeDownloadComponent
+  DawEditorComponent
 ];
