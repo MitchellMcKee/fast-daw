@@ -1,5 +1,11 @@
 <div fxLayout="row">
   <div fxFlex="75%">
+    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+      Play
+    </button>
+    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="stopAudio()">
+      Stop
+    </button>
     <app-daw-track></app-daw-track>
     <app-daw-track></app-daw-track>
   </div>

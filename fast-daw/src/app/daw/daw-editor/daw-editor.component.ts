@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AudioContextService } from 'src/services/audio-context-service';
 
 @Component({
   selector: 'app-daw-editor',
@@ -7,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DawEditorComponent implements OnInit {
 
-  constructor() {
+  constructor(private audioContextService: AudioContextService) {
   }
 
   ngOnInit(): void {
   }
+
+  playAudio = () => this.audioContextService.playAudio()
+  stopAudio = () => this.audioContextService.stopAudio()
 
 }

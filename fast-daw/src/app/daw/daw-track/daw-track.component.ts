@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AudioContextService } from 'src/services/audio-context-service';
 
 @Component({
   selector: 'app-daw-track',
@@ -10,9 +11,8 @@ export class DawTrackComponent implements OnInit {
   name = 'Track Name'
   audioSrc = 'Audio Src Name'
 
-  constructor() { }
+  constructor(private audioContextService: AudioContextService) { }
 
   ngOnInit(): void {
   }
-
 }
