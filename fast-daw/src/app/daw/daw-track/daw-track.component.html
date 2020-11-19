@@ -1,0 +1,36 @@
+<div class="track-container">
+  <mat-card fxLayout="row wrap">
+    <div fxFlex="20%">
+      <mat-label>Track Name</mat-label>
+      <mat-form-field appearance="fill" class="select-source">
+        <mat-label>Select an audio clip</mat-label>
+        <mat-select [(ngModel)]="audioSrc" name="audio source">
+          <mat-option [value]="audioSrc">
+            {{audioSrc}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        Volume:
+        <mat-slider></mat-slider>
+      </div>
+      <div fxLayout="row">
+        <mat-button-toggle value="left" aria-label="Mute button">
+          M
+        </mat-button-toggle>
+        <mat-button-toggle value="left" aria-label="Solo button">
+          S
+        </mat-button-toggle>
+        <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="Increase start time">
+          +
+        </button>
+        <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="decrease start time">
+          -
+        </button>
+      </div>
+    </div>
+    <div fxFlex="80%" fxFlex.xs="100%">
+      Track Waveform
+    </div>
+  </mat-card>
+</div>

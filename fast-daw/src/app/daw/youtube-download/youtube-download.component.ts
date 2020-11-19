@@ -19,6 +19,8 @@ export class YoutubeDownloadComponent implements OnInit {
   }
 
   getYouTubeDownloadLink = () => {
+    this.downloadTitle = 'Loading...';
+    this.downloadLink = '/';
     const videoId = this.getYouTubeId(this.value);
     this.youTubeDownloadService.getYouTubeDownloadLink(videoId)
       .then(result => {
