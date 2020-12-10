@@ -21,11 +21,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { YouTubeSearchService } from 'src/services/youtube-search-service';
 import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 import { AudioContextService } from 'src/services/audio-context-service';
+import { UserService } from 'src/services/user-service';
 
 // Non-routing Componentsimport { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
 import { YoutubeDownloadComponent } from './daw/youtube-download/youtube-download.component';
 import { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
 import { DawTrackComponent } from './daw/daw-track/daw-track.component';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { DawTrackComponent } from './daw/daw-track/daw-track.component';
     MatSelectModule,
     AudioContextModule.forRoot('balanced')
   ],
-  providers: [YouTubeSearchService, YouTubeDownloadService, AudioContextService],
+  providers: [YouTubeSearchService, YouTubeDownloadService, AudioContextService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
