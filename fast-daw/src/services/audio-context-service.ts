@@ -95,7 +95,6 @@ export class AudioContextService {
       if(track.trackNum === trackNum) {
         foundTrackNum = true
         track.gain = gain
-        console.log(track.gain)
       }
     })
     if(!foundTrackNum) {  
