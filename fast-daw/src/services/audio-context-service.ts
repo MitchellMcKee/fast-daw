@@ -12,7 +12,7 @@ export class AudioContextService {
       'node': this.audioContext.createBufferSource(),
       'url': 'url-placeholder',
       'offset': 0,
-      'gain': 0 
+      'gain': 0,
     }
   ]
  
@@ -21,7 +21,16 @@ export class AudioContextService {
     this.tracks = []
   }
 
-  playAudio = () => this.audioContext.resume()
+  playAudio = () => {
+    this.tracks.forEach(track => {
+      track.node.start(this.audioContext.currentTime + track.offset)
+      var gainNode = this.audioContext.createGain()
+      gainNode.gain.value = track.gain
+      gainNode.connect(this.audioContext.destination)
+      track.node.connect(gainNode)
+    })
+    this.audioContext.resume()
+  }
 
   stopAudio = () => this.audioContext.suspend()
 
@@ -40,8 +49,6 @@ export class AudioContextService {
             const bufferSource = this.audioContext.createBufferSource()
 
             bufferSource.buffer = decodedData
-            bufferSource.connect(this.audioContext.destination)
-            bufferSource.start(this.audioContext.currentTime)
 
             track.node = bufferSource
             track.url = url
@@ -71,25 +78,7 @@ export class AudioContextService {
     this.tracks.forEach(track => {
       if(track.trackNum === trackNum) {
         foundTrackNum = true
-        fetch(track.url)
-          .then(response => response.arrayBuffer())
-          .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
-          .then(decodedData => {
-            track.node.connect(this.audioContext.destination)
-            track.node.disconnect(this.audioContext.destination)
-
-            const bufferSource = this.audioContext.createBufferSource()
-
-            bufferSource.buffer = decodedData
-            bufferSource.connect(this.audioContext.destination)
-            
-            track.offset += offset
-            bufferSource.start(this.audioContext.currentTime + track.offset)
-
-            track.node = bufferSource
-            
-          })
-          .catch(error => console.log(error))
+        track.offset += offset
       }
     })
     if(!foundTrackNum) {  
@@ -98,48 +87,20 @@ export class AudioContextService {
     }
   }
 
-  decreaseAudioTrackOffset = (trackNum, offset) => {
-    // var foundTrackNum = false
-    // this.tracks.forEach(track => {
-    //   if(track.trackNum === trackNum) {
-    //     foundTrackNum = true
-    //     fetch(track.url)
-    //       .then(response => response.arrayBuffer())
-    //       .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
-    //       .then(decodedData => {
-    //         track.node.connect(this.audioContext.destination)
-    //         track.node.disconnect(this.audioContext.destination)
-
-    //         const bufferSource = this.audioContext.createBufferSource()
-
-    //         bufferSource.buffer = decodedData
-    //         bufferSource.connect(this.audioContext.destination)
-            
-    //         if(this.audioContext.currentTime + (track.offset - offset) < this.audioContext.currentTime) {
-    //           this.tracks.forEach(track => 
-    //             track.trackNum !== trackNum 
-    //               ? this.increaseAudioTrackOffset(track.trackNum, offset) 
-    //               : bufferSource.start(this.audioContext.currentTime + (track.offset - offset))) 
-    //         } else {
-
-    //         }
-
-    //         track.node = bufferSource
-    //       })
-    //       .catch(error => console.log(error))
-    //   }
-    // })
-    // if(!foundTrackNum) {  
-    //   this.addTrack(trackNum)
-    //   this.decreaseAudioTrackOffset(trackNum, offset)
-    // }
-  }
+  decreaseAudioTrackOffset = (trackNum, offset) => { }
 
   updateAudioTrackGain = (trackNum, gain) => {
+    var foundTrackNum = false
     this.tracks.forEach(track => {
       if(track.trackNum === trackNum) {
+        foundTrackNum = true
         track.gain = gain
+        console.log(track.gain)
       }
     })
+    if(!foundTrackNum) {  
+      this.addTrack(trackNum)
+      this.updateAudioTrackGain(trackNum, gain)
+    }
   }
 }
