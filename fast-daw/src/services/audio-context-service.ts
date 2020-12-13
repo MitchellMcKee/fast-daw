@@ -68,7 +68,7 @@ export class AudioContextService {
       'node': this.audioContext.createBufferSource(),
       'url': 'url-placeholder',
       'offset': 0,
-      'gain': 0 
+      'gain': 0.75 
     }
     this.tracks.push(newTrack)
   }

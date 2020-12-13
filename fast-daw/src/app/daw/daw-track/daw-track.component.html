@@ -17,20 +17,20 @@
         </mat-select>
       </mat-form-field>
       <div>
-        Volume:
+        <mat-button-toggle class="mute-btn" value="left" aria-label="Mute button" (click)="changeVolume()" *ngIf="muted">
+          Unmute
+        </mat-button-toggle>
+        <mat-button-toggle class="mute-btn" value="left" aria-label="Mute button" (click)="mute()" *ngIf="!muted">
+          mute
+        </mat-button-toggle>
         <mat-slider min="0" max="1" step="0.01" [(ngModel)]="volume" (click)="changeVolume()"></mat-slider>
       </div>
       <div fxLayout="row">
-        <mat-button-toggle value="left" aria-label="Mute button">
-          M
-        </mat-button-toggle>
-        <mat-button-toggle value="left" aria-label="Solo button">
-          S
-        </mat-button-toggle>
-        <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="Increase start time" (click)="increaseAudioTrackOffset()">
+        <button class="start-time-btns " mat-button matSuffix mat-icon-button aria-label="Increase start time" (click)="increaseOffset()">
           +
         </button>
-        <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="decrease start time" (click)="decreaseAudioTrackOffset()">
+        <input value="{{offset}}" class="offset-input">
+        <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="decrease start time" (click)="decreaseOffset()">
           -
         </button>
       </div>

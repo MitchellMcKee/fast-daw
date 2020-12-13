@@ -3,11 +3,13 @@
     <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
       Play
     </button>
-    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="stopAudio()">
+    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
       Stop
     </button>
-    <app-daw-track [trackNum]=1></app-daw-track>
-    <app-daw-track [trackNum]=2></app-daw-track>
+    <button class="add-track-btn" mat-button matSuffix mat-icon-button aria-label="Add Track" (click)="addTrack()">
+      Add Track
+    </button>
+    <app-daw-track *ngFor="let track of tracks" [trackNum]=track.trackNum></app-daw-track>
   </div>
   <div fxFlex="25%">
     <div>

@@ -13,6 +13,8 @@ export class DawTrackComponent implements OnInit {
   name = 'Track Name'
   trackSelection = ''
   volume = 0.75
+  muted = false
+  offset = 0
 
   proxyurl = "https://cors-anywhere.herokuapp.com/";
   url1 = "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav"; 
@@ -33,22 +35,26 @@ export class DawTrackComponent implements OnInit {
 
   changeVolume = () => {
     this.audioContextService.updateAudioTrackGain(this.trackNum, this.volume)
+    this.muted = false
   }
 
-  increaseAudioTrackOffset = () => {
-    if(this.trackSelection === 'imperialMarch') {
-      this.audioContextService.increaseAudioTrackOffset(this.trackNum, 1)
-    } else {
-      this.audioContextService.increaseAudioTrackOffset(this.trackNum, 1)
-    }
+  mute = () => {
+    this.audioContextService.updateAudioTrackGain(this.trackNum, 0)
+    this.muted = true
   }
 
-  decreaseAudioTrackOffset = () => {
-    if(this.trackSelection === 'imperialMarch') {
-      this.audioContextService.decreaseAudioTrackOffset(this.trackNum, 1)
-    } else {
-      this.audioContextService.decreaseAudioTrackOffset(this.trackNum, 1)
-    }
+  changeOffset = () => {
+    this.audioContextService.increaseAudioTrackOffset(this.trackNum, 0.5)
+  }
+
+  increaseOffset = () => {
+    this.offset += 0.5
+    this.changeOffset()
+  }
+
+  decreaseOffset = () => {
+    this.offset < 0.5 ? this.offset = 0 : this.offset -= 0.5
+    this.changeOffset
   }
 
 }

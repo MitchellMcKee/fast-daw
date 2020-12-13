@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/services/user-service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  username: ''
+  password: ''
+  errorMessage: ''
+
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  registerUser = () => {
+    const credentials = {
+      "username": this.username,
+      "password": this.password
+    }
+
+    this.userService.addUser(credentials)
+      .then(message => {
+        if(message.validationMessage === "user created") {
+          this.router.navigate(['/account'])
+        } else {
+          this.errorMessage = message.validationMessage
+        }
+      })
+  }
 }
