@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
 
-const url = 'http://localhost:3200/api/users'
+const localUrl = 'http://localhost:3200/api/users'
+const serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api/users'
 
 @Injectable()
 export class UserService {
   checkUserCredentials = (credentials) =>
-    fetch(`${url}/${credentials.username}`, {
+    fetch(`${serverUrl}/${credentials.username}`, {
       "method": "PUT",
       "headers": {"Content-Type": "application/json"},
       "body": JSON.stringify(credentials)
