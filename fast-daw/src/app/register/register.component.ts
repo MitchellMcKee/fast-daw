@@ -26,11 +26,12 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.addUser(credentials)
-      .then(message => {
-        if(message.validationMessage === "user created") {
+      .then(response => {
+        if(response.username && response.username === credentials.username
+           && response.password && response.password === credentials.password) {
           this.router.navigate(['/account'])
         } else {
-          this.errorMessage = message.validationMessage
+          console.log("something went wrong")
         }
       })
   }

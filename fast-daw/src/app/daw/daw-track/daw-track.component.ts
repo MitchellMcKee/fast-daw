@@ -10,11 +10,12 @@ export class DawTrackComponent implements OnInit {
 
   @Input() trackNum: number
 
-  name = 'Track Name'
+  trackName = 'Track Name'
   trackSelection = ''
   volume = 0.75
   muted = false
   offset = 0
+  editingTrackName = false
 
   proxyurl = "https://cors-anywhere.herokuapp.com/";
   url1 = "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav"; 
@@ -24,6 +25,8 @@ export class DawTrackComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  editName = () => this.editingTrackName = !this.editingTrackName
 
   selectAudioTrack = () => {
     if(this.trackSelection === 'imperialMarch') {
@@ -44,7 +47,7 @@ export class DawTrackComponent implements OnInit {
   }
 
   changeOffset = () => {
-    this.audioContextService.increaseAudioTrackOffset(this.trackNum, 0.5)
+    this.audioContextService.setAudioTrackOffset(this.trackNum, 0.5)
   }
 
   increaseOffset = () => {

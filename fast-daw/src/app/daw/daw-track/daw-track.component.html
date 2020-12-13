@@ -1,7 +1,22 @@
 <div class="track-container">
   <mat-card fxLayout="row wrap" class="track-color">
     <div fxFlex="20%">
-      <mat-label>Track Name</mat-label>
+      <div *ngIf="!editingTrackName">
+        <mat-label>{{trackName}}</mat-label>
+        <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
+          Edit
+        </button>
+      </div>
+      <div *ngIf="editingTrackName">
+        <mat-form-field appearance="standard">
+          <mat-label>Track Name</mat-label>
+          <input matInput value={{trackName}} [(ngModel)]="trackName">
+          <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
+            Done
+          </button>
+        </mat-form-field>
+      </div>
+
       <mat-form-field appearance="fill" class="select-source">
         <mat-label>Select an audio clip</mat-label>
         <mat-select [(value)]="trackSelection" name="audio source" (selectionChange)="selectAudioTrack()">

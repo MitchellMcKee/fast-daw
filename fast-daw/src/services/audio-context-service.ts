@@ -73,21 +73,19 @@ export class AudioContextService {
     this.tracks.push(newTrack)
   }
 
-  increaseAudioTrackOffset = (trackNum, offset) => {
+  setAudioTrackOffset = (trackNum, offset) => { 
     var foundTrackNum = false
     this.tracks.forEach(track => {
       if(track.trackNum === trackNum) {
         foundTrackNum = true
-        track.offset += offset
+        track.offset = offset
       }
     })
     if(!foundTrackNum) {  
       this.addTrack(trackNum)
-      this.increaseAudioTrackOffset(trackNum, offset)
+      this.setAudioTrackOffset(trackNum, offset)
     }
   }
-
-  decreaseAudioTrackOffset = (trackNum, offset) => { }
 
   updateAudioTrackGain = (trackNum, gain) => {
     var foundTrackNum = false

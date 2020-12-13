@@ -6,7 +6,7 @@ const serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api/
 @Injectable()
 export class UserService {
   checkUserCredentials = (credentials) =>
-    fetch(localUrl, {
+    fetch(serverUrl, {
       "method": "PUT",
       "headers": {"Content-Type": "application/json"},
       "body": JSON.stringify(credentials)
@@ -15,7 +15,7 @@ export class UserService {
       .catch(error => console.log("network error:" + error))
 
   addUser = (credentials) =>
-    fetch(localUrl, {
+    fetch(serverUrl, {
       "method": "POST",
       "headers": {"Content-Type": "application/json"},
       "body": JSON.stringify(credentials)
