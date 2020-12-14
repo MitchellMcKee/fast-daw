@@ -16,8 +16,13 @@ export class ProjectService {
       .then(response => response.json())
       .catch(error => console.log("network error:" + error))    
 
-  getProject = (projectId) =>
+  getProjectById = (projectId) =>
     fetch(`${url}/${projectId}`)
+      .then(response => response.json())
+      .catch(error => console.log("network error:" + error))
+
+  getProjects = () =>
+    fetch(`${url}`)
       .then(response => response.json())
       .catch(error => console.log("network error:" + error))
       

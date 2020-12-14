@@ -27,6 +27,7 @@ export class DawEditorComponent implements OnInit {
   file:any
   currTrackNum:number = 0
   started:boolean = false
+  errorMessage:String = ''
 
   constructor(
     private audioContextService: AudioContextService,
@@ -55,12 +56,12 @@ export class DawEditorComponent implements OnInit {
 
   loadProject = () => {
     if(this.projectId !== '') {
-      this.projectService.getProject(this.projectId)
+      this.projectService.getProjectById(this.projectId)
         .then(response => {
           if(response.error) {
             this.projectTitle = 'Could not load project'
           } else {
-            response.tracks.foreach(track => {
+            response.tracks.forEach(track => {
               this.loadTrack(track)
             })
           }
@@ -68,35 +69,52 @@ export class DawEditorComponent implements OnInit {
     }
   }
 
-  saveProject = () => {
-    if(this.projectId !== '') {
-      const updatedProject = {
-        "name": this.projectTitle,
-        "tracks": this.tracks
+  loadTrack = (track) => {
+    var loadedTrack = {
+      "trackOrder": track.trackOrder,
+      "trackName": track.trackName,
+      "selectedFilename": track.selectedFilename,
+      "offset": track.offset,
+      "volume": track.volume
+    }
+    this.tracks.push(loadedTrack)
+  }
+
+  createProject = () => {
+    if(localStorage.getItem('userId') !== '') {
+      const newProject = {
+        "name": "New Project",
+        "editors": localStorage.getItem('userId'),
+        "tracks": this.audioContextService.createProjectFile()
       }
-      this.projectService.updateProject(this.projectId, updatedProject)
-        .then(response => {
-          if(response.error) {
-            console.log("Could not save project: " + response.error)
-          } else {
-            console.log("Project Saved")
-          }
-        })
+      this.projectService.addProject(newProject)
+    } else {
+      this.errorMessage = 'You need to login to create a project'
     }
   }
 
-  loadTrack = (trackOrder) => {
-    this.trackService.getTrack(trackOrder)
-      .then(response => {
-        var track = {
-          "trackOrder": response.trackOrder,
-          "trackName": response.trackName,
-          "selectedFilename": response.selectedFilename,
-          "offset": response.offset,
-          "volume": response.volume
+  saveProject = () => {
+    if(localStorage.getItem('userId') !== '') {
+      if(this.projectId !== '') {
+        const updatedProject = {
+          "name": "New Project",
+          "editors": localStorage.getItem('userId'),
+          "tracks": this.tracks
         }
-        this.tracks.push(track)
-      })
+        this.projectService.updateProject(this.projectId, updatedProject)
+          .then(response => {
+            if(response.error) {
+              console.log("Could not save project: " + response.error)
+            } else {
+              console.log("Project Saved")
+            }
+          })
+      } else {
+        console.log('Cannot save without a project name')
+      }
+    } else {
+      this.errorMessage = 'You need to be an editor of this project to save'
+    }
   }
 
   onFileChange = (event) => {

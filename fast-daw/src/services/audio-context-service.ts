@@ -22,7 +22,7 @@ export class AudioContextService {
   ]
  
   constructor(private audioContext: AudioContext) { 
-    this.stopAudio()
+    this.pauseAudio()
     this.tracks = []
   }
 
@@ -109,5 +109,20 @@ export class AudioContextService {
       this.addTrack(trackOrder)
       this.updateAudioTrackGain(trackOrder, gain)
     }
+  }
+
+  createProjectFile = () => {
+    const projectFile = []
+    this.tracks.forEach(track => {
+      const trackToAdd = {
+        'trackOrder': track.trackOrder,
+        'trackName': "Track Name",
+        'selectedFilename': track.filename,
+        'offset': track.offset,
+        'volume': track.gain
+      }
+      projectFile.push(trackToAdd)
+    })
+    return projectFile
   }
 }

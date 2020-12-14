@@ -58,6 +58,12 @@
           Logout
         </button>
       </form>
+      <div class=projects-container>
+        <button class="log-in" *ngFor="let project of projects"
+                mat-button matSuffix aria-label="Go to login" (click)="goToProject(project.projectId)">
+          {{project.name}}
+        </button>
+      </div>
     </mat-card>
   </div>
 </ng-container>

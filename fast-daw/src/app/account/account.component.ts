@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProjectService } from 'src/services/project-service';
 import { UserService } from 'src/services/user-service';
 
 @Component({
@@ -11,7 +12,7 @@ export class AccountComponent implements OnInit {
   signedIn:boolean
   username:string
   password:string
-  projects:string[]
+  projects = []
   editing:boolean = false
   newUsername:string
   newPassword:string
@@ -19,7 +20,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private projectService: ProjectService
   ) { }
 
   ngOnInit(): void {
@@ -31,9 +33,23 @@ export class AccountComponent implements OnInit {
           this.password = credentials.password
           this.newPassword = this.password
           this.newUsername = this.username
-
+        })
+      this.projectService.getProjects()
+        .then(projects => {
+          projects.forEach(project => {
+            if(project.editors.includes(localStorage.getItem('userId'))) {
+              this.projects.push({
+                "name": project.name,
+                "projectId": project._id
+              })
+            }
+          })
         })
     }
+  }
+
+  goToProject = (projectId) => {
+    this.router.navigate([`daw/${projectId}`])
   }
 
   edit = () => {

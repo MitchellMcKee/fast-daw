@@ -9,11 +9,11 @@ import { TrackService } from 'src/services/track-service';
 })
 export class DawTrackComponent implements OnInit {
 
-  @Input() trackOrder: number = 0
-  @Input() trackName:string = 'New Track'
-  @Input() selectedFilename:string = ''
-  @Input() offset:number = 0
-  @Input() volume:number = 0.75
+  @Input() trackOrder: number
+  @Input() trackName:string
+  @Input() selectedFilename:string
+  @Input() offset:number
+  @Input() volume:number
 
   muted:boolean = false
   editingTrackName:boolean = false
@@ -29,6 +29,9 @@ export class DawTrackComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateAudioSources()
+    this.selectAudioTrack()
+    this.changeVolume()
+    this.changeOffset()
   }
 
   updateAudioSources = () => {

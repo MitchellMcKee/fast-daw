@@ -1,6 +1,6 @@
-<div class="track-container">
+<div>
   <mat-card fxLayout="row wrap" class="track-color">
-    <div fxFlex="20%">
+    <div fxFlex="100%">
       <div *ngIf="!editingTrackName">
         <mat-label>{{trackName}}</mat-label>
         <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
@@ -46,9 +46,6 @@
           -
         </button>
       </div>
-    </div>
-    <div fxFlex="80%" fxFlex.xs="100%">
-      Track Waveform
     </div>
   </mat-card>
 </div>
