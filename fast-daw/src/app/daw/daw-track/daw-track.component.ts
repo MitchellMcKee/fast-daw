@@ -10,16 +10,12 @@ export class DawTrackComponent implements OnInit {
 
   @Input() trackNum: number
 
-  trackName = 'Track Name'
-  trackSelection = ''
-  volume = 0.75
-  muted = false
-  offset = 0
-  editingTrackName = false
-
-  proxyurl = "https://cors-anywhere.herokuapp.com/";
-  url1 = "https://www2.cs.uic.edu/~i101/SoundFiles/ImperialMarch60.wav"; 
-  url2 = "https://www2.cs.uic.edu/~i101/SoundFiles/StarWars60.wav";
+  trackName:string = 'Track Name'
+  trackSelection:string = ''
+  volume:number = 0.75
+  muted:boolean = false
+  offset:number = 0
+  editingTrackName:boolean = false
 
   constructor(private audioContextService: AudioContextService) { }
 
@@ -29,11 +25,7 @@ export class DawTrackComponent implements OnInit {
   editName = () => this.editingTrackName = !this.editingTrackName
 
   selectAudioTrack = () => {
-    if(this.trackSelection === 'imperialMarch') {
-      this.audioContextService.updateAudioTrackSource(this.trackNum, this.proxyurl + this.url1)
-    } else {
-      this.audioContextService.updateAudioTrackSource(this.trackNum, this.proxyurl + this.url2)
-    }
+    this.audioContextService.updateAudioTrackSource(this.trackNum, "http://localhost:3200/files/f1b2d59fdbaf928fd37f28e70cf4a81f.mp3")
   }
 
   changeVolume = () => {

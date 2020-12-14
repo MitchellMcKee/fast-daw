@@ -9,9 +9,9 @@ import { UserService } from 'src/services/user-service';
 })
 export class LoginComponent implements OnInit {
 
-  username: ''
-  password: ''
-  errorMessage: ''
+  username:string = ''
+  password:string = ''
+  errorMessage: string = ''
 
   constructor(private userService: UserService,
               private router: Router) { }
@@ -26,11 +26,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.userService.checkUserCredentials(credentials)
-      .then(message => {
-        if(message.validationMessage === "verified") {
+      .then(response => {
+        if(response.validationMessage === 'verified') {
+          localStorage.setItem("userId", response.userId)
           this.router.navigate(['/account'])
         } else {
-          this.errorMessage = message.validationMessage
+          this.errorMessage = response.validationMessage
         }
       })
       

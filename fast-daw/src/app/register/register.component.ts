@@ -9,9 +9,9 @@ import { UserService } from 'src/services/user-service';
 })
 export class RegisterComponent implements OnInit {
 
-  username: ''
-  password: ''
-  errorMessage: ''
+  username:string = ''
+  password:string = ''
+  errorMessage: string
 
   constructor(private userService: UserService,
               private router: Router) { }
@@ -29,9 +29,10 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         if(response.username && response.username === credentials.username
            && response.password && response.password === credentials.password) {
+          localStorage.setItem("userId", response.userId)
           this.router.navigate(['/account'])
         } else {
-          console.log("something went wrong")
+          this.errorMessage = 'An account with that username has already been created'
         }
       })
   }

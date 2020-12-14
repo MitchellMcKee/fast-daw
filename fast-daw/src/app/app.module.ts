@@ -22,11 +22,13 @@ import { YouTubeSearchService } from 'src/services/youtube-search-service';
 import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { UserService } from 'src/services/user-service';
+import { FileService } from 'src/services/file-service';
 
 // Non-routing Componentsimport { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
 import { YoutubeDownloadComponent } from './daw/youtube-download/youtube-download.component';
 import { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
 import { DawTrackComponent } from './daw/daw-track/daw-track.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { DawTrackComponent } from './daw/daw-track/daw-track.component';
     routingComponents,
     YoutubeDownloadComponent,
     YoutubeSearchComponent,
-    DawTrackComponent
+    DawTrackComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +54,15 @@ import { DawTrackComponent } from './daw/daw-track/daw-track.component';
     MatSliderModule,
     MatButtonToggleModule,
     MatSelectModule,
-    AudioContextModule.forRoot('balanced')
+    AudioContextModule.forRoot('balanced'),
   ],
-  providers: [YouTubeSearchService, YouTubeDownloadService, AudioContextService, UserService],
+  providers: [
+    YouTubeSearchService, 
+    YouTubeDownloadService,
+    AudioContextService,
+    UserService,
+    FileService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AudioContextService } from 'src/services/audio-context-service';
+import { FileService } from 'src/services/file-service';
 
 @Component({
   selector: 'app-daw-editor',
@@ -18,13 +19,26 @@ export class DawEditorComponent implements OnInit {
     }
   ]
 
+  file: any
   currTrackNum = 1
 
-  constructor(private audioContextService: AudioContextService) {
-  }
+  constructor(
+    private audioContextService: AudioContextService,
+    private fileService: FileService
+  ) { }
 
   ngOnInit(): void {
     this.tracks = []
+  }
+
+  onFileChange = (event) => {
+    this.file = event.target.files[0]
+    console.log(this.file);
+  }
+
+  uploadFile = () => {
+    console.log(this.file);
+    this.fileService.uploadFile(this.file)
   }
 
   addTrack = () => {

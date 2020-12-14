@@ -7,8 +7,16 @@
       Stop
     </button>
     <button class="add-track-btn" mat-button matSuffix mat-icon-button aria-label="Add Track" (click)="addTrack()">
-      Add Track
+      Add
     </button>
+    <input type="file"
+           name="audioFile"
+           (change)="onFileChange($event)" 
+           placeholder="File Upload" />
+    <button class="add-track-btn" mat-button matSuffix mat-icon-button aria-label="Upload File" (click)="uploadFile()">
+      Upload
+    </button>
+    <app-logout></app-logout>
     <app-daw-track *ngFor="let track of tracks" [trackNum]=track.trackNum></app-daw-track>
   </div>
   <div fxFlex="25%">
