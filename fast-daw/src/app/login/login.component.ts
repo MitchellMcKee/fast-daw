@@ -33,8 +33,10 @@ export class LoginComponent implements OnInit {
         } else {
           this.errorMessage = response.validationMessage
         }
-      })
-      
+      })   
   }
 
+  goToRegister = () => {
+    this.router.navigate(['/register'])
+  }
 }

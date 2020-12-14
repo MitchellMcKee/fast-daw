@@ -8,7 +8,7 @@ export class AudioContextService {
 
   localUrl = 'http://localhost:3200'
   serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
-  url = this.localUrl
+  url = this.serverUrl
 
   tracks = [
     {
@@ -27,7 +27,9 @@ export class AudioContextService {
   }
 
   playAudio = () => this.audioContext.resume()
-  pauseAudio = () => this.audioContext.suspend()
+  pauseAudio = () => {
+    this.audioContext.suspend()
+  }
 
   startAudio = () => {
     this.tracks.forEach(track => {
@@ -50,24 +52,26 @@ export class AudioContextService {
   }
 
   updateAudioTrackSource = (trackOrder, filename) => {
-    var foundTrackNum = false
-    this.tracks.forEach(track => {
-      if(track.trackOrder === trackOrder) {
-        foundTrackNum = true
-        fetch(`${this.url}/files/${filename}`)
-          .then(response => response.arrayBuffer())
-          .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
-          .then(decodedData => {
-            const bufferSource = this.audioContext.createBufferSource()
-            bufferSource.buffer = decodedData
-            track.node = bufferSource
-            track.filename = filename
-          })
+    if(filename !== 'Filename' && filename !== '') {
+      var foundTrackNum = false
+      this.tracks.forEach(track => {
+        if(track.trackOrder === trackOrder) {
+          foundTrackNum = true
+          fetch(`${this.url}/files/${filename}`)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
+            .then(decodedData => {
+              const bufferSource = this.audioContext.createBufferSource()
+              bufferSource.buffer = decodedData
+              track.node = bufferSource
+              track.filename = filename
+            })
+        }
+      })
+      if(!foundTrackNum) {
+        this.addTrack(trackOrder)
+        this.updateAudioTrackSource(trackOrder, filename)
       }
-    })
-    if(!foundTrackNum) {  
-      this.addTrack(trackOrder)
-      this.updateAudioTrackSource(trackOrder, filename)
     }
   }
 

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { FileService } from 'src/services/file-service';
 import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
+import { HostListener } from "@angular/core";
+import { faPause, faStop, faPlay, faUpload } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-daw-editor',
@@ -28,13 +31,20 @@ export class DawEditorComponent implements OnInit {
   currTrackNum:number = 0
   started:boolean = false
   errorMessage:String = ''
+  screenWidth:number
+
+  pauseIcon = faPause
+  playIcon = faPlay
+  stopIcon = faStop
+  uploadIcon = faUpload
 
   constructor(
     private audioContextService: AudioContextService,
     private fileService: FileService,
     private projectService: ProjectService,
     private trackService: TrackService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +52,12 @@ export class DawEditorComponent implements OnInit {
     if(this.route.snapshot.paramMap.get('projectId')) {
       this.projectId = this.route.snapshot.paramMap.get('projectId')
       this.loadProject()
-      this.updateCurrTrackNum()
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenWidth = window.innerWidth;
   }
 
   updateCurrTrackNum = () => {
@@ -81,39 +95,44 @@ export class DawEditorComponent implements OnInit {
   }
 
   createProject = () => {
-    if(localStorage.getItem('userId') !== '') {
+    this.errorMessage = ''
+    if(localStorage.getItem('userId') === ''
+       || localStorage.getItem('userId') === null) {
+        this.errorMessage = 'You need to login to create a project'
+    } else {
       const newProject = {
         "name": "New Project",
         "editors": localStorage.getItem('userId'),
         "tracks": this.audioContextService.createProjectFile()
       }
       this.projectService.addProject(newProject)
-    } else {
-      this.errorMessage = 'You need to login to create a project'
+        .then(response => this.router.navigate([`daw/${response._id}`]))
     }
   }
 
   saveProject = () => {
-    if(localStorage.getItem('userId') !== '') {
+    this.errorMessage = ''
+    if(localStorage.getItem('userId') !== ''
+       || localStorage.getItem('userId') === null) {
+        this.errorMessage = 'You need to be an editor of this project to save'
+    } else {
       if(this.projectId !== '') {
         const updatedProject = {
           "name": "New Project",
           "editors": localStorage.getItem('userId'),
-          "tracks": this.tracks
+          "tracks": this.audioContextService.createProjectFile()
         }
         this.projectService.updateProject(this.projectId, updatedProject)
           .then(response => {
-            if(response.error) {
-              console.log("Could not save project: " + response.error)
+            if(response) {
+              console.log(response)
             } else {
               console.log("Project Saved")
             }
           })
       } else {
-        console.log('Cannot save without a project name')
+        this.errorMessage = 'Cannot save without a project name'
       }
-    } else {
-      this.errorMessage = 'You need to be an editor of this project to save'
     }
   }
 
@@ -131,6 +150,7 @@ export class DawEditorComponent implements OnInit {
   }
 
   addTrack = () => {
+    this.updateCurrTrackNum()
     var track = {
       "trackOrder": this.currTrackNum,
       "trackName": "Track Name",

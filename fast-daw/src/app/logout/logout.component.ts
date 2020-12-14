@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-logout',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 export class LogoutComponent implements OnInit {
 
   signedIn:boolean
+
+  userIcon = faUser
 
   constructor(private router: Router) { }
 
@@ -23,4 +26,7 @@ export class LogoutComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
+  goToAccount = () => {
+    this.router.navigate(['/account'])
+  }
 }

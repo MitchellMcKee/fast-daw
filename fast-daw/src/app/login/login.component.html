@@ -1,3 +1,4 @@
+<app-logo></app-logo>
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="50">
     <form fxLayoutAlign="stretch" fxLayout="column">
@@ -19,8 +20,14 @@
                matInput placeholder="Password">
       </mat-form-field>
 
-      <button mat-raised-button type="submit" (click)="checkCredentials()">
+      <button mat-raised-button type="submit" (click)="checkCredentials()"
+              class="login-btn">
         Login
+      </button>
+
+      <button mat-raised-button type="submit" (click)="goToRegister()"
+              color="accent">
+        Create An Account
       </button>
     </form>
   </mat-card>

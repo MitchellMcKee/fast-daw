@@ -1,5 +1,19 @@
-<button class="edit-btn" *ngIf="signedIn"
-        mat-button matSuffix mat-icon-button aria-label="Log out" 
-        (click)="logout()">
+<div *ngIf="signedIn">
+  <button class="account-btn" mat-mini-fab
+    matSuffix aria-label="My account" color="basic" 
+    (click)="goToAccount()">
+  <fa-icon [icon]="userIcon"></fa-icon>
+  </button>
+  <button class="account-btn"
+    mat-raised-button matSuffix aria-label="Log out" 
+    (click)="logout()">
   Log out
-</button>
+  </button>
+</div>
+<div *ngIf="!signedIn">
+  <button class="account-btn"
+    mat-raised-button matSuffix aria-label="Log out" 
+    (click)="logout()">
+  Sign in
+  </button>
+</div>

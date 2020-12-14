@@ -1,34 +1,43 @@
+<app-logo></app-logo>
+<app-logout></app-logout>
 <div fxLayout="row">
   <div fxFlex="75%">
-    <button class="play-btn" *ngIf="!started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
-      Start
-    </button>
-    <button class="play-btn" *ngIf="started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
-      Play
-    </button>
-    <button class="play-btn" *ngIf="started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
-      Pause
-    </button>
-    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
-      Stop
-    </button>
-    <button class="add-track-btn" mat-button matSuffix aria-label="Add Track" (click)="addTrack()">
-      Add
-    </button>
-    <input type="file"
+    <div>
+      <button class="add-track-btn upload-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="uploadFile()">
+        <fa-icon [icon]="uploadIcon"></fa-icon>
+      </button>
+      <input type="file"
            name="audioFile"
            (change)="onFileChange($event)" 
-           placeholder="File Upload" />
-    <button class="add-track-btn" mat-button matSuffix aria-label="Upload File" (click)="uploadFile()">
-      Upload
+           placeholder="File Upload"
+           class="upload-input" />
+    </div>
+    <div>
+      <div *ngIf="errorMessage" class="error-msg">
+        {{errorMessage}}
+      </div>
+      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="saveProject()">
+        Save Project
+      </button>
+      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="createProject()">
+        Create Project
+      </button>
+    </div>
+    <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+      <fa-icon [icon]="playIcon"></fa-icon>
     </button>
-    <button class="add-track-btn" mat-button matSuffix aria-label="Upload File" (click)="saveProject()">
-      Save Project
+    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+      <fa-icon [icon]="playIcon"></fa-icon>
     </button>
-    <button class="add-track-btn" mat-button matSuffix aria-label="Upload File" (click)="createProject()">
-      Create Project
+    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
+      <fa-icon [icon]="pauseIcon"></fa-icon>
     </button>
-    <app-logout></app-logout>
+    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
+      <fa-icon [icon]="stopIcon"></fa-icon>
+    </button>
+    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
+      Add Track
+    </button>
     <div fxLayout="row wrap">
       <mat-card class="track-card-container" *ngFor="let track of tracks">
         <mat-card-content>
@@ -44,7 +53,7 @@
     </div>
   </div>
   <div fxFlex="25%">
-    <div>
+    <div *ngIf="screenWidth > 540">
       <app-youtube-download></app-youtube-download>
       <app-youtube-search></app-youtube-search>
     </div>

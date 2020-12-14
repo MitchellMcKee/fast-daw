@@ -29,11 +29,14 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         if(response.username && response.username === credentials.username
            && response.password && response.password === credentials.password) {
-          localStorage.setItem("userId", response.userId)
-          this.router.navigate(['/account'])
+          this.errorMessage = `${response.username} has been created, you may now log in`
         } else {
           this.errorMessage = 'An account with that username has already been created'
         }
       })
+  }
+
+  goToLogin = () => {
+    this.router.navigate(['/login'])
   }
 }

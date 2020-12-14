@@ -7,6 +7,7 @@ import { DawEditorComponent } from './daw/daw-editor/daw-editor.component';
 
 const routes: Routes = [
   {path: '', component: DawEditorComponent},
+  {path: 'home', component: DawEditorComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'account', component: AccountComponent},

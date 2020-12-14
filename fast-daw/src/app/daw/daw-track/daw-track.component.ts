@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { TrackService } from 'src/services/track-service';
+import { faCheckSquare, faEdit, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-daw-track',
@@ -17,10 +18,16 @@ export class DawTrackComponent implements OnInit {
 
   muted:boolean = false
   editingTrackName:boolean = false
+  newOffset:number = 0
   audioSources = [{
     'name': '',
     'filename': ''
   }]
+
+  muteIcon = faVolumeMute
+  volumeIcon = faVolumeUp
+  editIcon = faEdit
+  checkIcon = faCheckSquare
 
   constructor(
     private audioContextService: AudioContextService,
@@ -31,6 +38,7 @@ export class DawTrackComponent implements OnInit {
     this.updateAudioSources()
     this.selectAudioTrack()
     this.changeVolume()
+    this.newOffset = this.offset
     this.changeOffset()
   }
 
@@ -45,7 +53,6 @@ export class DawTrackComponent implements OnInit {
 
   selectAudioTrack = () => {
     this.audioContextService.updateAudioTrackSource(this.trackOrder, this.selectedFilename)
-    this.updateAudioSources
   }
 
   changeVolume = () => {
@@ -59,7 +66,11 @@ export class DawTrackComponent implements OnInit {
   }
 
   changeOffset = () => {
-    this.audioContextService.setAudioTrackOffset(this.trackOrder, 0.5)
+    if(this.newOffset < 0) {
+      this.newOffset = 0
+    }
+    this.offset = this.newOffset
+    this.audioContextService.setAudioTrackOffset(this.trackOrder, this.offset)
   }
 
   increaseOffset = () => {
