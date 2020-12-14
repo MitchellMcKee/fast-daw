@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 
 // Services
 import { YouTubeSearchService } from 'src/services/youtube-search-service';
@@ -54,6 +56,7 @@ import { LogoutComponent } from './logout/logout.component';
     MatSliderModule,
     MatButtonToggleModule,
     MatSelectModule,
+    MatGridListModule,
     AudioContextModule.forRoot('balanced'),
   ],
   providers: [
