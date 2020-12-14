@@ -7,20 +7,14 @@ const url = localUrl
 
 @Injectable()
 export class FileService {
-  
 
-  uploadFile = (file) => {
-    const formData = new FormData()
-    formData.append('audioFile', file)
-
+  uploadFile = (formData) => 
     fetch(url, {
       "method": "POST",
       "body": formData
     })
       .then(response => response.json())
-      .then(data => console.log(data))
       .catch(error => console.log("network error:" + error))    
-  }
 
   getFile = (filename) => {
     fetch(`${url}/${filename}`)

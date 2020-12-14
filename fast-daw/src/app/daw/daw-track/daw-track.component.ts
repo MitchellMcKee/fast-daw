@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AudioContextService } from 'src/services/audio-context-service';
+import { TrackService } from 'src/services/track-service';
 
 @Component({
   selector: 'app-daw-track',
@@ -8,38 +9,54 @@ import { AudioContextService } from 'src/services/audio-context-service';
 })
 export class DawTrackComponent implements OnInit {
 
-  @Input() trackNum: number
+  @Input() trackOrder: number = 0
+  @Input() trackName:string = 'New Track'
+  @Input() selectedFilename:string = ''
+  @Input() offset:number = 0
+  @Input() volume:number = 0.75
 
-  trackName:string = 'Track Name'
-  trackSelection:string = ''
-  volume:number = 0.75
   muted:boolean = false
-  offset:number = 0
   editingTrackName:boolean = false
+  audioSources = [{
+    'name': '',
+    'filename': ''
+  }]
 
-  constructor(private audioContextService: AudioContextService) { }
+  constructor(
+    private audioContextService: AudioContextService,
+    private trackService: TrackService
+  ) { }
 
   ngOnInit(): void {
+    this.updateAudioSources()
+  }
+
+  updateAudioSources = () => {
+    this.trackService.findAllTracks()
+      .then(response => {
+        this.audioSources = response
+      })
   }
 
   editName = () => this.editingTrackName = !this.editingTrackName
 
   selectAudioTrack = () => {
-    this.audioContextService.updateAudioTrackSource(this.trackNum, "http://localhost:3200/files/f1b2d59fdbaf928fd37f28e70cf4a81f.mp3")
+    this.audioContextService.updateAudioTrackSource(this.trackOrder, this.selectedFilename)
+    this.updateAudioSources
   }
 
   changeVolume = () => {
-    this.audioContextService.updateAudioTrackGain(this.trackNum, this.volume)
+    this.audioContextService.updateAudioTrackGain(this.trackOrder, this.volume)
     this.muted = false
   }
 
   mute = () => {
-    this.audioContextService.updateAudioTrackGain(this.trackNum, 0)
+    this.audioContextService.updateAudioTrackGain(this.trackOrder, 0)
     this.muted = true
   }
 
   changeOffset = () => {
-    this.audioContextService.setAudioTrackOffset(this.trackNum, 0.5)
+    this.audioContextService.setAudioTrackOffset(this.trackOrder, 0.5)
   }
 
   increaseOffset = () => {

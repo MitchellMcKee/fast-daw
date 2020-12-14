@@ -50,13 +50,18 @@ export class AccountComponent implements OnInit {
     } else {
       this.username = this.newUsername
       this.password = this.newPassword
+      const credentials = {
+        "username": this.username,
+        "password": this.password
+      }
+      this.userService.updateUser(localStorage.getItem('userId'), credentials)
       this.edit()
     } 
   }
 
   goToLogin = () => {
     localStorage.setItem('userId', '')
-    this.router.navigate(['/account'])
+    this.router.navigate(['/login'])
   }
 
 }

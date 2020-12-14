@@ -2,7 +2,7 @@
   <div fxLayoutAlign="center center" fxFlexFill class="main-div">
     <mat-card fxFlex="50">
       <form fxLayoutAlign="stretch" fxLayout="column">
-        <mat-toolbar color="primary">Login Page</mat-toolbar>
+        <mat-toolbar color="primary">My Account</mat-toolbar>
         
         <div *ngIf="errorMessage" class="error-msg">
           {{errorMessage}}
@@ -54,7 +54,7 @@
             </button>
         </div>
   
-        <button mat-raised-button type="submit" (click)="goToLogin()">
+        <button mat-raised-button (click)="goToLogin()">
           Logout
         </button>
       </form>

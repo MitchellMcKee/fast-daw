@@ -28,5 +28,14 @@ export class UserService {
   getUser = (userId) =>
     fetch(`${url}/${userId}`)
       .then(response => response.json())
-      .catch(error => console.log("network error:" + error))    
+      .catch(error => console.log("network error:" + error))
+      
+  updateUser = (userId, credentials) =>
+    fetch(`${url}/${userId}`, {
+      "method": "PUT",
+      "headers": {"Content-Type": "application/json"},
+      "body": JSON.stringify(credentials)
+    })
+      .then(response => response.json())
+      .catch(error => console.log("network error:" + error))
 }

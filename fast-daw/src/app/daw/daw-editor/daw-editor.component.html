@@ -1,7 +1,13 @@
 <div fxLayout="row">
   <div fxFlex="75%">
-    <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+    <button class="play-btn" *ngIf="!started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+      Start
+    </button>
+    <button class="play-btn" *ngIf="started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
       Play
+    </button>
+    <button class="play-btn" *ngIf="started" mat-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
+      Pause
     </button>
     <button class="play-btn" mat-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
       Stop
@@ -16,8 +22,18 @@
     <button class="add-track-btn" mat-button matSuffix mat-icon-button aria-label="Upload File" (click)="uploadFile()">
       Upload
     </button>
+    <button class="add-track-btn" mat-button matSuffix mat-icon-button aria-label="Upload File" (click)="saveProject()">
+      Save Project
+    </button>
     <app-logout></app-logout>
-    <app-daw-track *ngFor="let track of tracks" [trackNum]=track.trackNum></app-daw-track>
+    <app-daw-track *ngFor="let track of tracks" 
+                   [trackOrder]="track.trackOrder"
+                   [trackName]="track.trackName"
+                   [selectedFilename]="track.selectedFilename"
+                   [offset]="track.offset"
+                   [volume]="track.volume"
+                   >
+    </app-daw-track>
   </div>
   <div fxFlex="25%">
     <div>

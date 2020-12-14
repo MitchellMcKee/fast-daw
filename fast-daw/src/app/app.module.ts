@@ -25,6 +25,8 @@ import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { UserService } from 'src/services/user-service';
 import { FileService } from 'src/services/file-service';
+import { ProjectService } from 'src/services/project-service';
+import { TrackService } from 'src/services/track-service';
 
 // Non-routing Componentsimport { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
 import { YoutubeDownloadComponent } from './daw/youtube-download/youtube-download.component';
@@ -64,7 +66,9 @@ import { LogoutComponent } from './logout/logout.component';
     YouTubeDownloadService,
     AudioContextService,
     UserService,
-    FileService
+    FileService,
+    ProjectService,
+    TrackService
   ],
   bootstrap: [AppComponent]
 })
