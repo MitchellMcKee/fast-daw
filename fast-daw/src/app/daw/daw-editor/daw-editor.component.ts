@@ -112,7 +112,7 @@ export class DawEditorComponent implements OnInit {
 
   saveProject = () => {
     this.errorMessage = ''
-    if(localStorage.getItem('userId') !== ''
+    if(localStorage.getItem('userId') === ''
        || localStorage.getItem('userId') === null) {
         this.errorMessage = 'You need to be an editor of this project to save'
     } else {
