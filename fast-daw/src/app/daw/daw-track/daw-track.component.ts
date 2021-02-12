@@ -83,4 +83,11 @@ export class DawTrackComponent implements OnInit {
     this.changeOffset
   }
 
+  deleteTrackFromDatabase = () => {
+    if(this.selectedFilename !== '') {
+      this.trackService.deleteTrack(this.selectedFilename)
+      this.selectedFilename = ''
+    }
+  }
+
 }
