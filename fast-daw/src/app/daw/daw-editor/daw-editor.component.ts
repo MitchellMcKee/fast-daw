@@ -69,7 +69,7 @@ export class DawEditorComponent implements OnInit {
   }
 
   loadProject = () => {
-    if(this.projectId !== '') {
+    if(this.projectId && this.projectId !== '') {
       this.projectService.getProjectById(this.projectId)
         .then(response => {
           if(response.error) {
@@ -136,18 +136,6 @@ export class DawEditorComponent implements OnInit {
     }
   }
 
-  onFileChange = (event) => {
-    this.file = event.target.files[0]
-  }
-
-  uploadFile = () => {
-    const formData = new FormData()
-    formData.append('audioFile', this.file)
-    this.fileService.uploadFile(formData)
-      .then(response => {
-        this.trackService.addAudioSource(response)
-      })
-  }
 
   addTrack = () => {
     this.updateCurrTrackNum()
@@ -166,9 +154,33 @@ export class DawEditorComponent implements OnInit {
     this.audioContextService.startAudio()
     this.started = true
   }
-  stopAudio = () => this.audioContextService.stopAudio()
+
+  stopAudio = () => {
+    this.audioContextService.stopAudio()
+    this.started = false
+  }
 
   playAudio = () => this.audioContextService.playAudio()
   pauseAudio = () => this.audioContextService.pauseAudio()
+
+  // file methods
+  onFileChange = (event) => {
+    this.file = event.target.files[0]
+  }
+
+  uploadFile = () => {
+    if(this.verifyFileType()) {
+      const formData = new FormData()
+      formData.append('audioFile', this.file)
+      this.fileService.uploadFile(formData)
+        .then(response => {
+          this.trackService.addAudioSource(response)
+        })
+    } else {
+      console.log("file type is not mp3")
+    }
+  }
+
+  verifyFileType = () => this.file?.type === 'audio/mpeg'
 
 }

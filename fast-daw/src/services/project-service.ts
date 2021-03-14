@@ -34,4 +34,12 @@ export class ProjectService {
     })
       .then(response => response.json())
       .catch(error => console.log("network error:" + error))
+
+  deleteProject = (projectId) =>
+    fetch(`${url}/${projectId}`, {
+      "method": "DELETE",
+      "headers": {"Content-Type": "application/json"},
+    })
+      .then(response => response.json())
+      .catch(error => console.log("network error:" + error))
 }

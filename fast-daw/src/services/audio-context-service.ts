@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
- 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +13,7 @@ export class AudioContextService {
   tracks = [
     {
       'trackOrder': 0,
+      'decodedData': this.audioContext.createBuffer(1, 1, 3000),
       'node': this.audioContext.createBufferSource(),
       'filename': 'filename',
       'offset': 0,
@@ -20,35 +21,46 @@ export class AudioContextService {
       'gainNode': this.audioContext.createGain()
     }
   ]
- 
-  constructor(private audioContext: AudioContext) { 
+
+  constructor(private audioContext: AudioContext) {
     this.pauseAudio()
     this.tracks = []
   }
 
-  playAudio = () => this.audioContext.resume()
-  pauseAudio = () => {
-    this.audioContext.suspend()
-  }
+  playAudio = () => this.audioContext.state === 'suspended' ? this.audioContext.resume() : console.log('already playing')
+  pauseAudio = () => this.audioContext.state === 'running' ? this.audioContext.suspend() : console.log('already suspended')
 
   startAudio = () => {
-    this.tracks.forEach(track => {
-      var gainNode = this.audioContext.createGain()
-      gainNode.gain.value = track.gain
-      track.node.connect(gainNode)
-      gainNode.connect(this.audioContext.destination)
-      track.node.start(this.audioContext.currentTime + track.offset)
-      track.gainNode = gainNode
-    })
+    this.loadTracks();
+    console.log(this.tracks)
     this.playAudio()
   }
 
   stopAudio = () => {
-    this.tracks.forEach(track => { 
-      track.node.disconnect()
+    this.tracks.forEach(track => {
       track.gainNode.disconnect()
+      track.node.disconnect()
     })
     this.pauseAudio()
+  }
+
+  loadTracks = () => {
+    this.tracks.forEach(track => {
+      // load audio data
+      const bufferSource = this.audioContext.createBufferSource()
+      bufferSource.buffer = track.decodedData
+      track.node = bufferSource
+      track.decodedData = track.decodedData
+
+      // connect to volume control
+      var gainNode = this.audioContext.createGain()
+      gainNode.gain.value = track.gain
+      track.node.connect(gainNode)
+      gainNode.connect(this.audioContext.destination)
+      track.gainNode = gainNode
+
+      track.node.start(this.audioContext.currentTime + track.offset) 
+    })
   }
 
   updateAudioTrackSource = (trackOrder, filename) => {
@@ -64,6 +76,7 @@ export class AudioContextService {
               const bufferSource = this.audioContext.createBufferSource()
               bufferSource.buffer = decodedData
               track.node = bufferSource
+              track.decodedData = decodedData
               track.filename = filename
             })
         }
@@ -78,6 +91,7 @@ export class AudioContextService {
   private addTrack = (trackOrder) => {
     var newTrack = {
       'trackOrder': trackOrder,
+      'decodedData': this.audioContext.createBuffer(1, 1, 3000),
       'node': this.audioContext.createBufferSource(),
       'filename': 'filename',
       'offset': 0,
@@ -87,31 +101,33 @@ export class AudioContextService {
     this.tracks.push(newTrack)
   }
 
-  setAudioTrackOffset = (trackOrder, offset) => { 
+  setAudioTrackOffset = (trackOrder, newOffset) => {
     var foundTrackNum = false
     this.tracks.forEach(track => {
       if(track.trackOrder === trackOrder) {
         foundTrackNum = true
-        track.offset = offset
+        track.offset = newOffset
+        console.log(track.offset)
       }
     })
-    if(!foundTrackNum) {  
+    if(!foundTrackNum) {
       this.addTrack(trackOrder)
-      this.setAudioTrackOffset(trackOrder, offset)
+      this.setAudioTrackOffset(trackOrder, newOffset)
     }
   }
 
-  updateAudioTrackGain = (trackOrder, gain) => {
+  updateAudioTrackGain = (trackOrder, newGain) => {
     var foundTrackNum = false
     this.tracks.forEach(track => {
       if(track.trackOrder === trackOrder) {
         foundTrackNum = true
-        track.gain = gain
+        track.gain = newGain
+        track.gainNode.gain.value = track.gain
       }
     })
-    if(!foundTrackNum) {  
+    if(!foundTrackNum) {
       this.addTrack(trackOrder)
-      this.updateAudioTrackGain(trackOrder, gain)
+      this.updateAudioTrackGain(trackOrder, newGain)
     }
   }
 
@@ -120,6 +136,7 @@ export class AudioContextService {
     this.tracks.forEach(track => {
       const trackToAdd = {
         'trackOrder': track.trackOrder,
+        'decodedData': track.decodedData,
         'trackName': "Track Name",
         'selectedFilename': track.filename,
         'offset': track.offset,
@@ -128,5 +145,10 @@ export class AudioContextService {
       projectFile.push(trackToAdd)
     })
     return projectFile
+  }
+
+  ngOnDestroy(): void {
+    this.stopAudio()
+    this.tracks = []
   }
 }

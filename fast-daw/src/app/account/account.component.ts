@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit {
       this.projectService.getProjects()
         .then(projects => {
           projects.forEach(project => {
-            if(project.editors.includes(localStorage.getItem('userId'))) {
+            if(project.editors?.includes(localStorage.getItem('userId'))) {
               this.projects.push({
                 "name": project.name,
                 "projectId": project._id
@@ -50,6 +50,10 @@ export class AccountComponent implements OnInit {
 
   goToProject = (projectId) => {
     this.router.navigate([`daw/${projectId}`])
+  }
+
+  deleteProject = (projectId) => {
+    this.projectService.deleteProject(projectId)
   }
 
   edit = () => {

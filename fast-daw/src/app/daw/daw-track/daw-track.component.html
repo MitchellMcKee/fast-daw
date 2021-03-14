@@ -42,19 +42,7 @@
         <mat-slider min="0" max="1" step="0.01" [(ngModel)]="volume" (click)="changeVolume()"></mat-slider>
       </div>
       <div fxLayout="row">
-        <!-- <button class="start-time-btns " mat-button matSuffix mat-icon-button aria-label="Increase start time" (click)="increaseOffset()">
-          +
-        </button> -->
-        <mat-form-field appearance="standard">
-          <mat-label>Set Offset</mat-label>
-          <input matInput placeholder="{{offset}}" [(ngModel)]="newOffset" name="offset">
-          <button mat-button *ngIf="newOffset !== offset" matSuffix mat-icon-button aria-label="Clear" (click)="changeOffset()">
-            <mat-icon>OK</mat-icon>
-          </button>
-        </mat-form-field>
-        <!-- <button class="start-time-btns" mat-button matSuffix mat-icon-button aria-label="decrease start time" (click)="decreaseOffset()">
-          -
-        </button> -->
+        <input [(ngModel)]="newOffset" name="offset" (focusout)="changeOffset()">
       </div>
     </div>
   </mat-card>

@@ -69,18 +69,8 @@ export class DawTrackComponent implements OnInit {
     if(this.newOffset < 0) {
       this.newOffset = 0
     }
-    this.offset = this.newOffset
+    this.offset += (this.newOffset - this.offset)
     this.audioContextService.setAudioTrackOffset(this.trackOrder, this.offset)
-  }
-
-  increaseOffset = () => {
-    this.offset += 0.5
-    this.changeOffset()
-  }
-
-  decreaseOffset = () => {
-    this.offset < 0.5 ? this.offset = 0 : this.offset -= 0.5
-    this.changeOffset
   }
 
   deleteTrackFromDatabase = () => {
