@@ -1,28 +1,6 @@
 <app-logo></app-logo>
-<app-logout></app-logout>
 <div fxLayout="row">
-  <div fxFlex="75%">
-    <div>
-      <button class="add-track-btn upload-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="uploadFile()">
-        <fa-icon [icon]="uploadIcon"></fa-icon>
-      </button>
-      <input type="file"
-           name="audioFile"
-           (change)="onFileChange($event)" 
-           placeholder="File Upload"
-           class="upload-input" />
-    </div>
-    <div>
-      <div *ngIf="errorMessage" class="error-msg">
-        {{errorMessage}}
-      </div>
-      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="saveProject()">
-        Save Project
-      </button>
-      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Upload File" (click)="createProject()">
-        Create Project
-      </button>
-    </div>
+  <div>
     <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
       start
     </button>
@@ -52,10 +30,5 @@
       </mat-card>
     </div>
   </div>
-  <div fxFlex="25%">
-    <div *ngIf="screenWidth > 540">
-      <app-youtube-download></app-youtube-download>
-      <app-youtube-search></app-youtube-search>
-    </div>
-  </div>
 </div>
+<app-menu></app-menu>

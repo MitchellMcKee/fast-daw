@@ -18,6 +18,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 // Services
@@ -35,6 +36,8 @@ import { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.comp
 import { DawTrackComponent } from './daw/daw-track/daw-track.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LogoComponent } from './logo/logo.component';
+import { MenuComponent } from './menu/menu.component';
+import { PlaybackControlsComponent } from './playback-controls/playback-controls.component';
 
 
 @NgModule({
@@ -45,7 +48,9 @@ import { LogoComponent } from './logo/logo.component';
     YoutubeSearchComponent,
     DawTrackComponent,
     LogoutComponent,
-    LogoComponent
+    LogoComponent,
+    MenuComponent,
+    PlaybackControlsComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +68,7 @@ import { LogoComponent } from './logo/logo.component';
     MatSelectModule,
     MatGridListModule,
     MatIconModule,
+    MatExpansionModule,
     FontAwesomeModule,
     AudioContextModule.forRoot('balanced'),
   ],
