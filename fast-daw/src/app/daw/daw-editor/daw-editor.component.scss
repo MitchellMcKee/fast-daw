@@ -1,8 +1,30 @@
 // @import '../../../styles/mixins';
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.menu-sidebar {
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  z-index: 1000;
+}
+
 .add-track-btn {
   margin-right: 8px;
   margin-bottom: 8px;
+}
+
+.playback-btns-container {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 999;
 }
 
 .play-btn {
@@ -14,13 +36,5 @@
   max-width: 252px;
   padding: 0;
   margin-right: 8px;
-  margin-bottom: 8px;
-}
-
-.upload-btn {
-  display: block;
-}
-
-.upload-input {
   margin-bottom: 8px;
 }

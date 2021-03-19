@@ -1,18 +1,17 @@
-<app-logo></app-logo>
-<div fxLayout="row">
-  <div>
-    <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
-      start
-    </button>
-    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
-      <fa-icon [icon]="playIcon"></fa-icon>
-    </button>
-    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
-      <fa-icon [icon]="pauseIcon"></fa-icon>
-    </button>
-    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
-      <fa-icon [icon]="stopIcon"></fa-icon>
-    </button>
+<div class="header" fxLayout="row">
+  <app-logo></app-logo>
+  <button mat-icon-button class="open-menu-btn" (click)="toggleMenu()">
+    <fa-icon *ngIf="!openMenu" [icon]="barsIcon"></fa-icon>
+    <fa-icon *ngIf="openMenu" [icon]="chevronUpIcon"></fa-icon>
+  </button>
+</div>
+
+<div *ngIf="openMenu" class="menu-sidebar">
+  <app-menu></app-menu>  
+</div>
+
+<div fxLayout="row" class="editor-container">
+  <div class="editor">
     <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
       Add Track
     </button>
@@ -29,6 +28,20 @@
         </mat-card-content>
       </mat-card>
     </div>
+
+    <div class="playback-btns-container">
+      <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+        start
+      </button>
+      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+        <fa-icon [icon]="playIcon"></fa-icon>
+      </button>
+      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
+        <fa-icon [icon]="pauseIcon"></fa-icon>
+      </button>
+      <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
+        <fa-icon [icon]="stopIcon"></fa-icon>
+      </button>
+    </div>
   </div>
 </div>
-<app-menu></app-menu>

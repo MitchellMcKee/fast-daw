@@ -5,7 +5,7 @@ import { FileService } from 'src/services/file-service';
 import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
 import { HostListener } from "@angular/core";
-import { faPause, faStop, faPlay, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faPause, faStop, faPlay, faBars, faChevronUp} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -32,7 +32,10 @@ export class DawEditorComponent implements OnInit {
   started:boolean = false
   errorMessage:String = ''
   screenWidth:number
+  openMenu:boolean = false
 
+  barsIcon = faBars
+  chevronUpIcon = faChevronUp
   pauseIcon = faPause
   playIcon = faPlay
   stopIcon = faStop
@@ -48,6 +51,8 @@ export class DawEditorComponent implements OnInit {
     if(this.route.snapshot.paramMap.get('projectId')) {
       this.projectId = this.route.snapshot.paramMap.get('projectId')
       this.loadProject()
+    } else {
+      this.addTrack()
     }
   }
 
@@ -116,4 +121,6 @@ export class DawEditorComponent implements OnInit {
 
   playAudio = () => this.audioContextService.playAudio()
   pauseAudio = () => this.audioContextService.pauseAudio()
+
+  toggleMenu = () => this.openMenu = !this.openMenu
 }
