@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
+import { AudioTrack } from 'src/models/daw-editor.models';
 
 @Injectable({
   providedIn: 'root',
@@ -10,21 +11,21 @@ export class AudioContextService {
   serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
   url = this.localUrl
 
-  tracks = [
-    {
-      'trackOrder': 0,
-      'decodedData': this.audioContext.createBuffer(1, 1, 3000),
-      'node': this.audioContext.createBufferSource(),
-      'filename': 'filename',
-      'offset': 0,
-      'gain': 0.75,
-      'gainNode': this.audioContext.createGain()
-    }
-  ]
+  tracks: AudioTrack[] = []
+  // tracks: AudioTrack[] = [
+  //   {
+  //     'trackOrder': 0,
+  //     'decodedData': this.audioContext.createBuffer(1, 1, 3000),
+  //     'node': this.audioContext.createBufferSource(),
+  //     'filename': 'filename',
+  //     'offset': 0,
+  //     'gain': 0.75,
+  //     'gainNode': this.audioContext.createGain()
+  //   }
+  // ]
 
   constructor(private audioContext: AudioContext) {
     this.pauseAudio()
-    this.tracks = []
   }
 
   playAudio = () => this.audioContext.state === 'suspended' ? this.audioContext.resume() : console.log('already playing')
@@ -32,7 +33,6 @@ export class AudioContextService {
 
   startAudio = () => {
     this.loadTracks();
-    console.log(this.tracks)
     this.playAudio()
   }
 
@@ -107,7 +107,6 @@ export class AudioContextService {
       if(track.trackOrder === trackOrder) {
         foundTrackNum = true
         track.offset = newOffset
-        console.log(track.offset)
       }
     })
     if(!foundTrackNum) {

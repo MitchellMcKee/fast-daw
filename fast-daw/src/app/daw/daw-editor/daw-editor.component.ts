@@ -123,4 +123,8 @@ export class DawEditorComponent implements OnInit {
   pauseAudio = () => this.audioContextService.pauseAudio()
 
   toggleMenu = () => this.openMenu = !this.openMenu
+
+  ngOnDestroy(): void {
+    this.audioContextService.stopAudio()
+  }
 }

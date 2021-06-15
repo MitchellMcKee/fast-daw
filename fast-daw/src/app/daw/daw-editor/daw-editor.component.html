@@ -10,38 +10,38 @@
   <app-menu></app-menu>  
 </div>
 
-<div fxLayout="row" class="editor-container">
-  <div class="editor">
-    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
-      Add Track
-    </button>
-    <div fxLayout="row wrap">
-      <mat-card class="track-card-container" *ngFor="let track of tracks">
-        <mat-card-content>
-          <app-daw-track
-            [trackOrder]="track.trackOrder"
-            [trackName]="track.trackName"
-            [selectedFilename]="track.selectedFilename"
-            [offset]="track.offset"
-            [volume]="track.volume">
-          </app-daw-track>
-        </mat-card-content>
-      </mat-card>
-    </div>
+<div class="editor">
+  <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
+    Add Track
+  </button>
+  <mat-card class="track-card-container" *ngFor="let track of tracks">
+    <mat-card-content>
+      <app-daw-track
+        [trackOrder]="track.trackOrder"
+        [trackName]="track.trackName"
+        [selectedFilename]="track.selectedFilename"
+        [offset]="track.offset"
+        [volume]="track.volume">
+      </app-daw-track>
+    </mat-card-content>
+  </mat-card>
+  <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
+    +
+  </button>
 
-    <div class="playback-btns-container">
-      <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
-        start
-      </button>
-      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
-        <fa-icon [icon]="playIcon"></fa-icon>
-      </button>
-      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
-        <fa-icon [icon]="pauseIcon"></fa-icon>
-      </button>
-      <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
-        <fa-icon [icon]="stopIcon"></fa-icon>
-      </button>
-    </div>
+  <div class="playback-btns-container">
+    <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+      start
+    </button>
+    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+      <fa-icon [icon]="playIcon"></fa-icon>
+    </button>
+    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
+      <fa-icon [icon]="pauseIcon"></fa-icon>
+    </button>
+    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
+      <fa-icon [icon]="stopIcon"></fa-icon>
+    </button>
   </div>
 </div>
+
