@@ -6,6 +6,7 @@ import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
 import { HostListener } from "@angular/core";
 import { faPause, faStop, faPlay, faBars, faChevronUp} from '@fortawesome/free-solid-svg-icons';
+import { UITrack } from 'src/models/daw-editor.models';
 
 
 @Component({
@@ -15,16 +16,7 @@ import { faPause, faStop, faPlay, faBars, faChevronUp} from '@fortawesome/free-s
 })
 export class DawEditorComponent implements OnInit {
 
-  tracks = [
-    {
-      "trackOrder": 0,
-      "trackName": "Track Name",
-      "selectedFilename": "Filename",
-      "offset": 0,
-      "volume": 0
-    }
-  ]
-
+  tracks:UITrack[] = []
   projectId:string = ''
   projectTitle:string = 'New Project'
   file:any

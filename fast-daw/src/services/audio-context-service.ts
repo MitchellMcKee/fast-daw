@@ -12,17 +12,6 @@ export class AudioContextService {
   url = this.localUrl
 
   tracks: AudioTrack[] = []
-  // tracks: AudioTrack[] = [
-  //   {
-  //     'trackOrder': 0,
-  //     'decodedData': this.audioContext.createBuffer(1, 1, 3000),
-  //     'node': this.audioContext.createBufferSource(),
-  //     'filename': 'filename',
-  //     'offset': 0,
-  //     'gain': 0.75,
-  //     'gainNode': this.audioContext.createGain()
-  //   }
-  // ]
 
   constructor(private audioContext: AudioContext) {
     this.pauseAudio()

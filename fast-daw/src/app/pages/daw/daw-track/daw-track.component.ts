@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { TrackService } from 'src/services/track-service';
 import { faCheckSquare, faEdit, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { audioSource } from 'src/models/daw-editor.models';
 
 @Component({
   selector: 'app-daw-track',
@@ -19,10 +20,7 @@ export class DawTrackComponent implements OnInit {
   muted:boolean = false
   editingTrackName:boolean = false
   newOffset:number = 0
-  audioSources = [{
-    'name': '',
-    'filename': ''
-  }]
+  audioSources:audioSource[] = []
 
   muteIcon = faVolumeMute
   volumeIcon = faVolumeUp

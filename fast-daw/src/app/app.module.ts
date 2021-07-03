@@ -30,14 +30,14 @@ import { FileService } from 'src/services/file-service';
 import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
 
-// Non-routing Componentsimport { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
-import { YoutubeDownloadComponent } from './daw/youtube-download/youtube-download.component';
-import { YoutubeSearchComponent } from './daw/youtube-search/youtube-search.component';
-import { DawTrackComponent } from './daw/daw-track/daw-track.component';
-import { LogoutComponent } from './logout/logout.component';
-import { LogoComponent } from './logo/logo.component';
-import { MenuComponent } from './menu/menu.component';
-import { PlaybackControlsComponent } from './playback-controls/playback-controls.component';
+// UI Components
+import { YoutubeDownloadComponent } from './ui-components/youtube-download/youtube-download.component';
+import { YoutubeSearchComponent } from './ui-components/youtube-search/youtube-search.component';
+import { DawTrackComponent } from './pages/daw/daw-track/daw-track.component';
+import { LogoutComponent } from './ui-components/logout/logout.component';
+import { LogoComponent } from './ui-components/logo/logo.component';
+import { MenuComponent } from './ui-components/menu/menu.component';
+import { PlaybackControlsComponent } from './pages/daw/playback-controls/playback-controls.component';
 
 
 @NgModule({

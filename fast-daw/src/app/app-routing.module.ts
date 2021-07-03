@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AccountComponent } from './account/account.component';
-import { DawEditorComponent } from './daw/daw-editor/daw-editor.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { AccountComponent } from './pages/account/account.component';
+import { DawEditorComponent } from './pages/daw/daw-editor/daw-editor.component';
 
 const routes: Routes = [
   {path: '', component: DawEditorComponent},
