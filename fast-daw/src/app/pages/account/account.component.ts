@@ -34,19 +34,22 @@ export class AccountComponent implements OnInit {
           this.newPassword = this.password
           this.newUsername = this.username
         })
-      this.projectService.getProjects()
-        .then(projects => {
-          projects.forEach(project => {
-            if(project.editors?.includes(localStorage.getItem('userId'))) {
-              this.projects.push({
-                "name": project.name,
-                "projectId": project._id
-              })
-            }
-          })
-        })
+      this.findProjects()
     }
   }
+
+  findProjects = () => 
+    this.projectService.getProjects()
+      .then(projects => {
+        projects.forEach(project => {
+          if(project.editors?.includes(localStorage.getItem('userId'))) {
+            this.projects.push({
+              "name": project.name,
+              "projectId": project._id
+            })
+          }
+        })
+      })
 
   goToProject = (projectId) => {
     this.router.navigate([`daw/${projectId}`])
@@ -54,6 +57,7 @@ export class AccountComponent implements OnInit {
 
   deleteProject = (projectId) => {
     this.projectService.deleteProject(projectId)
+    this.projects = this.projects.filter(project => project.projectId !== projectId)
   }
 
   edit = () => {

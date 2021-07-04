@@ -78,4 +78,8 @@ export class DawTrackComponent implements OnInit {
     }
   }
 
+  deleteTrack = () => {
+    console.log('delete track called');
+  }
+
 }

@@ -30,8 +30,9 @@
       </mat-form-field>
       
       <div>
+        <button (click)="deleteTrack()">X</button>
         <mat-button-toggle class="delete-track-btn" aria-label="Mute button" (click)="deleteTrackFromDatabase()">
-          X
+          Delete Audio
         </mat-button-toggle>
         <mat-button-toggle class="mute-btn" value="left" aria-label="Mute button" (click)="changeVolume()" *ngIf="muted">
           <fa-icon [icon]="volumeIcon"></fa-icon>
