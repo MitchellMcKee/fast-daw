@@ -17,9 +17,11 @@ export class FileService {
       .catch(error => console.log("network error:" + error))    
 
   getFile = (filename) => {
-    fetch(`${url}/${filename}`)
-      .then(response => response.json)
-      .catch(error => console.log("network error:" + error))
+    if(filename !== 'filename') {
+      fetch(`${url}/${filename}`)
+        .then(response => response.json)
+        .catch(error => console.log("network error:" + error))
+    }
   }
     
 

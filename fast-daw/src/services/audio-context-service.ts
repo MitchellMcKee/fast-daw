@@ -53,7 +53,7 @@ export class AudioContextService {
   }
 
   updateAudioTrackSource = (trackOrder, filename) => {
-    if(filename !== 'Filename' && filename !== '') {
+    if(filename !== 'filename' && filename !== '') {
       var foundTrackNum = false
       this.tracks.forEach(track => {
         if(track.trackOrder === trackOrder) {

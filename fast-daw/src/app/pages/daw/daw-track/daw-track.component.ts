@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { TrackService } from 'src/services/track-service';
 import { faCheckSquare, faEdit, faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,8 @@ export class DawTrackComponent implements OnInit {
   @Input() selectedFilename:string
   @Input() offset:number
   @Input() volume:number
+
+  @Output() deleteTrackEmitter: EventEmitter<any> = new EventEmitter()
 
   muted:boolean = false
   editingTrackName:boolean = false
@@ -79,7 +81,7 @@ export class DawTrackComponent implements OnInit {
   }
 
   deleteTrack = () => {
-    console.log('delete track called');
+    this.deleteTrackEmitter.emit()
   }
 
 }

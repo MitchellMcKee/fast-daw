@@ -30,7 +30,7 @@
       </mat-form-field>
       
       <div>
-        <button (click)="deleteTrack()">X</button>
+        <mat-button-toggle (click)="deleteTrack()">X</mat-button-toggle>
         <mat-button-toggle class="delete-track-btn" aria-label="Mute button" (click)="deleteTrackFromDatabase()">
           Delete Audio
         </mat-button-toggle>

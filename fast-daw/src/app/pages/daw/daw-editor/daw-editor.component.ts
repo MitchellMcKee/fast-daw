@@ -93,12 +93,16 @@ export class DawEditorComponent implements OnInit {
     var track = {
       "trackOrder": this.currTrackNum,
       "trackName": "Track Name",
-      "selectedFilename": "Filename",
+      "selectedFilename": "filename",
       "offset": 0,
       "volume": 0.75
     }
     this.tracks.push(track)
     this.updateCurrTrackNum()
+  }
+
+  deleteTrack = (trackOrder) => {
+    this.tracks = this.tracks.filter(track => track.trackOrder !== trackOrder)
   }
 
   startAudio = () => {
