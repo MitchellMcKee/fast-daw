@@ -9,7 +9,8 @@ export type AudioTrack = {
     'filename': string,
     'offset': number,
     'gain': number,
-    'gainNode': any
+    'gainNode': any,
+    'rawData'?: ArrayBuffer
 }
 
 // a UITrack contrains all the info needed to display a track on the DAW page

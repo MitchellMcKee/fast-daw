@@ -135,6 +135,8 @@ export class AudioContextService {
     return projectFile
   }
 
+  getTrackData = (trackOrder) => this.tracks.find(track => track.trackOrder === trackOrder).rawData
+
   ngOnDestroy(): void {
     this.stopAudio()
     this.tracks = []

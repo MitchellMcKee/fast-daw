@@ -2,7 +2,7 @@
   "name": "fast-daw",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",   
+    "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -31,9 +31,11 @@
     "angular-audio-context": "^29.0.15",
     "angular-material-fileupload": "^3.0.1",
     "install": "^0.13.0",
+    "ng-waveform": "^0.2.1",
     "npm": "^6.14.9",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "waveform-data": "^4.1.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

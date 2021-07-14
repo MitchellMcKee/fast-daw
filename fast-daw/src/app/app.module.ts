@@ -1,6 +1,7 @@
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AudioContextModule } from 'angular-audio-context';
+import { NgWaveformModule } from 'ng-waveform';
 
 // Styling
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,6 +39,7 @@ import { LogoutComponent } from './ui-components/logout/logout.component';
 import { LogoComponent } from './ui-components/logo/logo.component';
 import { MenuComponent } from './ui-components/menu/menu.component';
 import { PlaybackControlsComponent } from './pages/daw/playback-controls/playback-controls.component';
+import { WaveformComponent } from './ui-components/waveform/waveform.component';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { PlaybackControlsComponent } from './pages/daw/playback-controls/playbac
     LogoutComponent,
     LogoComponent,
     MenuComponent,
-    PlaybackControlsComponent
+    PlaybackControlsComponent,
+    WaveformComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { PlaybackControlsComponent } from './pages/daw/playback-controls/playbac
     MatExpansionModule,
     FontAwesomeModule,
     AudioContextModule.forRoot('balanced'),
+    NgWaveformModule
   ],
   providers: [
     YouTubeSearchService, 

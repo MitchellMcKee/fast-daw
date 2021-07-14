@@ -23,6 +23,7 @@ export class DawTrackComponent implements OnInit {
   editingTrackName:boolean = false
   newOffset:number = 0
   audioSources:audioSource[] = []
+  audioData:ArrayBuffer
 
   muteIcon = faVolumeMute
   volumeIcon = faVolumeUp
@@ -40,6 +41,7 @@ export class DawTrackComponent implements OnInit {
     this.changeVolume()
     this.newOffset = this.offset
     this.changeOffset()
+    this.getWaveformData()
   }
 
   updateAudioSources = () => {
@@ -82,6 +84,10 @@ export class DawTrackComponent implements OnInit {
 
   deleteTrack = () => {
     this.deleteTrackEmitter.emit()
+  }
+
+  getWaveformData = () => {
+    this.audioData = this.audioContextService.getTrackData(this.trackOrder)
   }
 
 }
