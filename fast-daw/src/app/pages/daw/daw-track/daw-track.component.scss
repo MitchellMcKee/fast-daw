@@ -1,34 +1,48 @@
-.editing-name-container {
-  display: inline;
-}
+.track-container {
+  display: block;
 
-.select-source {
-  margin-top: 8px;
-  margin-bottom: -16px;
-}
+  .delete-btn-container {
+    width: 100%;
 
-.mute-btn {
-  height: 48px;
-  width: 48px;
-  margin: 4px;
-}
+    .delete-track-btn {
+      background: lightcoral;
+      color: white;
+      float: right;
+    }
+  }
 
-.start-time-btns {
-  border: solid 1px rgba(0,0,0,.12);
-  border-radius: 4px;
-  background: white;
-  height: 32px;
-  width: 32px;
-  margin: 12px 4px 0 4px;
-}
+  .editing-name-container {
+    display: inline;
+  }
 
-.offset-input {
-  width: 64px;
-  height: 48px;
-  border: solid 1px rgba(0,0,0,.12);
-  border-radius: 4px;
-}
+  .select-source {
+    margin-top: 8px;
+    margin-bottom: -16px;
+  }
 
-.track-color {
-  background: lightblue;
+  .mute-btn {
+    height: 48px;
+    width: 48px;
+    margin: 4px 4px 4px 0;
+  }
+
+  .start-time-btns {
+    border: solid 1px rgba(0,0,0,.12);
+    border-radius: 4px;
+    background: white;
+    height: 32px;
+    width: 32px;
+    margin: 12px 4px 0 4px;
+  }
+
+  .offset-input {
+    width: 64px;
+    margin-left: 8px;
+    border: solid 1px rgba(0,0,0,.12);
+    border-radius: 4px;
+  }
+
+  .track-color {
+    background: lightblue;
+  }
 }

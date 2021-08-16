@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 const localUrl = 'http://localhost:3200'
 const serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
 
-const url = localUrl
+const url = serverUrl
 
 @Injectable()
 export class TrackService {
@@ -14,7 +14,7 @@ export class TrackService {
       "body": JSON.stringify(project)
     })
       .then(response => response.json())
-      .catch(error => console.log("network error:" + error))    
+      .catch(error => console.log("network error:" + error))
 
   getTrack = (trackId) =>
     fetch(`${url}/projectTracks/${trackId}`)
@@ -33,8 +33,8 @@ export class TrackService {
       "body": JSON.stringify(track)
     })
       .then(response => response.json())
-      .catch(error => console.log("network error:" + error))    
-      
+      .catch(error => console.log("network error:" + error))
+
   updateTrack = (trackId, track) =>
     fetch(`${url}/${trackId}`, {
       "method": "PUT",
@@ -49,5 +49,5 @@ export class TrackService {
       "method": "DELETE"
     })
       .then(response => response.json())
-      .catch(error => console.log("network error:" + error))    
+      .catch(error => console.log("network error:" + error))
 }

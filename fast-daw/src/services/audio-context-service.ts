@@ -9,7 +9,7 @@ export class AudioContextService {
 
   localUrl = 'http://localhost:3200'
   serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
-  url = this.localUrl
+  url = this.serverUrl
 
   tracks: AudioTrack[] = []
 
@@ -48,7 +48,7 @@ export class AudioContextService {
       gainNode.connect(this.audioContext.destination)
       track.gainNode = gainNode
 
-      track.node.start(this.audioContext.currentTime + track.offset) 
+      track.node.start(this.audioContext.currentTime + track.offset)
     })
   }
 
@@ -134,8 +134,6 @@ export class AudioContextService {
     })
     return projectFile
   }
-
-  getTrackData = (trackOrder) => this.tracks.find(track => track.trackOrder === trackOrder).rawData
 
   ngOnDestroy(): void {
     this.stopAudio()

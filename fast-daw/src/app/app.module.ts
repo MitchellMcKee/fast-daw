@@ -39,7 +39,6 @@ import { LogoutComponent } from './ui-components/logout/logout.component';
 import { LogoComponent } from './ui-components/logo/logo.component';
 import { MenuComponent } from './ui-components/menu/menu.component';
 import { PlaybackControlsComponent } from './pages/daw/playback-controls/playback-controls.component';
-import { WaveformComponent } from './ui-components/waveform/waveform.component';
 
 
 @NgModule({
@@ -52,8 +51,7 @@ import { WaveformComponent } from './ui-components/waveform/waveform.component';
     LogoutComponent,
     LogoComponent,
     MenuComponent,
-    PlaybackControlsComponent,
-    WaveformComponent
+    PlaybackControlsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,11 +71,10 @@ import { WaveformComponent } from './ui-components/waveform/waveform.component';
     MatIconModule,
     MatExpansionModule,
     FontAwesomeModule,
-    AudioContextModule.forRoot('balanced'),
-    NgWaveformModule
+    AudioContextModule.forRoot('balanced')
   ],
   providers: [
-    YouTubeSearchService, 
+    YouTubeSearchService,
     YouTubeDownloadService,
     AudioContextService,
     UserService,
