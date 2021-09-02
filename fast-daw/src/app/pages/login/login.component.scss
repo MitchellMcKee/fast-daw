@@ -1,11 +1,17 @@
+@import '../../../styles/variables';
+
 .main-div {
   padding: 0;
 }
 
+.login-title {
+  @include color(primary, light);
+}
+
 .error-msg {
+  @include text-color(secondary);
   margin-top: 4px;
   font-weight: 550;
-  color: #b72222
 }
 
 .login-btn {

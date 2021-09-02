@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faDownload, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 
 @Component({
@@ -12,6 +13,9 @@ export class YoutubeDownloadComponent implements OnInit {
   youTubeSearchResults = []
   downloadLink = ''
   downloadTitle = ''
+
+  timesIcon = faTimes
+  downloadIcon = faDownload
 
   constructor(private youTubeDownloadService: YouTubeDownloadService) { }
 
@@ -41,5 +45,5 @@ export class YoutubeDownloadComponent implements OnInit {
     }
       return ID;
   }
-  
+
 }

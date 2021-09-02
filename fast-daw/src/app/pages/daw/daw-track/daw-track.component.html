@@ -33,20 +33,24 @@
       </mat-form-field>
 
       <div>
-        <mat-button-toggle class="mute-btn" value="left" aria-label="Mute button" (click)="mute()" *ngIf="!muted">
+        <button class="mute-btn" aria-label="Mute button" (click)="mute()" *ngIf="!muted">
           <fa-icon [icon]="muteIcon"></fa-icon>
-        </mat-button-toggle>
-        <mat-button-toggle class="delete-src-btn" aria-label="Mute button" (click)="deleteTrackFromDatabase()">
-          Delete Audio Source
-        </mat-button-toggle>
-        <mat-button-toggle class="mute-btn" value="left" aria-label="Mute button" (click)="changeVolume()" *ngIf="muted">
+        </button>
+        <button class="unmute-btn" aria-label="Unmute button" (click)="changeVolume()" *ngIf="muted">
           <fa-icon [icon]="volumeIcon"></fa-icon>
-        </mat-button-toggle>
+        </button>
+
+        <button class="delete-src-btn" aria-label="Delete audio file from server" (click)="deleteTrackFromDatabase()">
+          Delete File from Server
+        </button>
+
+        Volume:
         <mat-slider min="0" max="1" step="0.01" [(ngModel)]="volume" (click)="changeVolume()"></mat-slider>
       </div>
       <div fxLayout="row">
-        <span class="offset-label">Set Offset: </span>
+        <span class="offset-label">Delay start by </span>
         <input class="offset-input" [(ngModel)]="newOffset" name="offset" (focusout)="changeOffset()">
+        seconds
       </div>
     </div>
   </mat-card>

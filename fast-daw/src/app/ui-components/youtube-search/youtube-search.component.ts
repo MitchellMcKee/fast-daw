@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YouTubeSearchService } from 'src/services/youtube-search-service';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-youtube-search',
@@ -8,8 +9,11 @@ import { YouTubeSearchService } from 'src/services/youtube-search-service';
 })
 export class YoutubeSearchComponent implements OnInit {
 
-  value = '';
+  value = ''
   youTubeSearchResults = []
+
+  timesIcon = faTimes
+  searchIcon = faSearch
 
   constructor(private youTubeSearchService: YouTubeSearchService) { }
 

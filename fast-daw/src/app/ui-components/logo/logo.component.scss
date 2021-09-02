@@ -1,8 +1,12 @@
+@import '../../../styles/variables';
+
 .logo-text {
-  font-weight: 600;
+  @include text-color(light);
+  font-weight: 4500;
   font-size: large;
 }
 
 .logo {
+  @include color(primary);
   margin-bottom: 8px;
 }

@@ -2,21 +2,21 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="50">
     <form fxLayoutAlign="stretch" fxLayout="column">
-      <mat-toolbar color="primary">Login Page</mat-toolbar>
-      
+      <mat-toolbar class="login-title">Login Page</mat-toolbar>
+
       <div *ngIf="errorMessage" class="error-msg">
         {{errorMessage}}
       </div>
 
       <mat-form-field>
-        <input [(ngModel)]="username" 
-               [ngModelOptions]="{standalone: true, allowInvalid: true}" 
+        <input [(ngModel)]="username"
+               [ngModelOptions]="{standalone: true, allowInvalid: true}"
                matInput placeholder="Username">
       </mat-form-field>
 
       <mat-form-field>
-        <input [(ngModel)]="password" 
-               [ngModelOptions]="{standalone: true, allowInvalid: true}" 
+        <input [(ngModel)]="password"
+               [ngModelOptions]="{standalone: true, allowInvalid: true}"
                matInput placeholder="Password">
       </mat-form-field>
 
