@@ -9,7 +9,7 @@ export class AudioContextService {
 
   localUrl = 'http://localhost:3200'
   serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
-  url = this.localUrl
+  url = this.serverUrl
 
   tracks: AudioTrack[] = []
 

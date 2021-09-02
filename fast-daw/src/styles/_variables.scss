@@ -1,14 +1,18 @@
 @mixin color($background: primary, $color: none) {
   @if ($background == primary) {
-    background: #4ec2da;
+    background: #6ac7da;
   }
 
   @if ($background == secondary) {
-    background: #f14c84;
+    background: #ff75a4;
   }
 
   @if ($background == tertiary) {
-    background: #7bc768;
+    background: #85c575;
+  }
+
+  @if ($background == white) {
+    background: #f5f5f5;
   }
 
   @if ($color == light) {
@@ -22,11 +26,11 @@
 
 @mixin text-color($color: light) {
   @if ($color == primary) {
-    color: #4ec2da;
+    color: #6ac7da;
   }
 
   @if ($color == secondary) {
-    color: #f14c84;
+    color: #ff75a4;
   }
 
   @if ($color == light) {
