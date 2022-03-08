@@ -52,6 +52,7 @@ export class DawTrackComponent implements OnInit {
   editName = () => this.editingTrackName = !this.editingTrackName
 
   selectAudioTrack = () => {
+    this.audioContextService.stopAudio()
     this.audioContextService.updateAudioTrackSource(this.trackOrder, this.selectedFilename)
   }
 
@@ -77,10 +78,12 @@ export class DawTrackComponent implements OnInit {
     if(this.selectedFilename !== '') {
       this.trackService.deleteTrack(this.selectedFilename)
       this.selectedFilename = ''
+      this.audioContextService.disconnectAudioTrack(this.trackOrder)
     }
   }
 
   deleteTrack = () => {
+    this.audioContextService.disconnectAudioTrack(this.trackOrder)
     this.deleteTrackEmitter.emit()
   }
 }

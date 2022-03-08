@@ -35,29 +35,31 @@ export class AudioContextService {
 
   loadTracks = () => {
     this.tracks.forEach(track => {
-      // load audio data
-      const bufferSource = this.audioContext.createBufferSource()
-      bufferSource.buffer = track.decodedData
-      track.node = bufferSource
-      track.decodedData = track.decodedData
+      if (track.filename !== 'filename' && track.filename !== '') {
+        // load audio data
+        const bufferSource = this.audioContext.createBufferSource()
+        bufferSource.buffer = track.decodedData
+        track.node = bufferSource
+        track.decodedData = track.decodedData
 
-      // connect to volume control
-      var gainNode = this.audioContext.createGain()
-      gainNode.gain.value = track.gain
-      track.node.connect(gainNode)
-      gainNode.connect(this.audioContext.destination)
-      track.gainNode = gainNode
+        // connect to volume control
+        var gainNode = this.audioContext.createGain()
+        gainNode.gain.value = track.gain
+        track.node.connect(gainNode)
+        gainNode.connect(this.audioContext.destination)
+        track.gainNode = gainNode
 
-      track.node.start(this.audioContext.currentTime + track.offset)
+        track.node.start(this.audioContext.currentTime + track.offset)
+      }
     })
   }
 
   updateAudioTrackSource = (trackOrder, filename) => {
-    if(filename !== 'filename' && filename !== '') {
-      var foundTrackNum = false
-      this.tracks.forEach(track => {
-        if(track.trackOrder === trackOrder) {
-          foundTrackNum = true
+    var foundTrackNum = false
+    this.tracks.forEach(track => {
+      if(track.trackOrder === trackOrder) {
+        foundTrackNum = true
+        if(filename !== 'filename' && filename !== '') {
           fetch(`${this.url}/files/${filename}`)
             .then(response => response.arrayBuffer())
             .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
@@ -68,19 +70,21 @@ export class AudioContextService {
               track.decodedData = decodedData
               track.filename = filename
             })
+        } else {
+          track.filename = ''
         }
-      })
-      if(!foundTrackNum) {
-        this.addTrack(trackOrder)
-        this.updateAudioTrackSource(trackOrder, filename)
       }
+    })
+    if(!foundTrackNum) {
+      this.addTrack(trackOrder)
+      this.updateAudioTrackSource(trackOrder, filename)
     }
   }
 
   private addTrack = (trackOrder) => {
     var newTrack = {
       'trackOrder': trackOrder,
-      'decodedData': this.audioContext.createBuffer(1, 1, 3000),
+      'decodedData': this.audioContext.createBuffer(1, 1, 44100),
       'node': this.audioContext.createBufferSource(),
       'filename': 'filename',
       'offset': 0,
@@ -101,6 +105,29 @@ export class AudioContextService {
     if(!foundTrackNum) {
       this.addTrack(trackOrder)
       this.setAudioTrackOffset(trackOrder, newOffset)
+    }
+  }
+
+  disconnectAudioTrack = (trackOrder) => {
+    this.tracks.forEach((track, trackIndex) => {
+      if(track.trackOrder === trackOrder) {
+        track.gainNode.disconnect()
+        track.node.disconnect()
+      }
+    })
+  }
+
+  deleteAudioTrack = (trackOrder) => {
+    var trackToDelete = -1
+    this.tracks.forEach((track, trackIndex) => {
+      if(track.trackOrder === trackOrder) {
+        track.gainNode.disconnect()
+        track.node.disconnect()
+        trackToDelete = trackIndex
+      }
+    })
+    if (trackToDelete !== -1) {
+      this.tracks.splice(trackToDelete, 1)
     }
   }
 
