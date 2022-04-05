@@ -105,9 +105,13 @@ export class DawEditorComponent implements OnInit {
     this.tracks = this.tracks.filter(track => track.trackOrder !== trackOrder)
   }
 
+  checkIfLoading = () => this.audioContextService.checkIfLoading()
+
   startAudio = () => {
-    this.audioContextService.startAudio()
-    this.started = true
+    if (!this.audioContextService.checkIfLoading()) {
+      this.audioContextService.startAudio()
+      this.started = true
+    }
   }
 
   stopAudio = () => {

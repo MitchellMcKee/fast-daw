@@ -5,9 +5,22 @@
     <fa-icon *ngIf="openMenu" [icon]="chevronUpIcon"></fa-icon>
   </button>
 </div>
-
+<!--
 <div *ngIf="openMenu" class="menu-sidebar">
   <app-menu></app-menu>
+</div>
+ -->
+
+ <div class="info-text">
+  <span class="info-text">
+    Fast DAW allows for asynchronous playback of multiple audio files.
+  </span>
+  <span class="info-text">
+    Choose or upload an audio file then set how long you want to delay the start of that track.
+  </span>
+  <span class="info-text">
+    Once set, hit start at the bottom of the screen and enjoy!
+  </span>
 </div>
 
 <div class="editor">
@@ -31,7 +44,7 @@
   </button>
 
   <div class="playback-btns-container">
-    <button class="play-btn" *ngIf="!started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
       start
     </button>
     <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">

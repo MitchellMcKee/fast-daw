@@ -10,6 +10,7 @@ export class AudioContextService {
   localUrl = 'http://localhost:3200'
   serverUrl = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/api'
   url = this.serverUrl
+  isLoading = false
 
   tracks: AudioTrack[] = []
 
@@ -21,8 +22,13 @@ export class AudioContextService {
   pauseAudio = () => this.audioContext.state === 'running' ? this.audioContext.suspend() : console.log('already suspended')
 
   startAudio = () => {
-    this.loadTracks();
-    this.playAudio()
+    if (this.isLoading) {
+      console.log("can't start, still loading audio")
+    } else {
+      this.stopAudio()
+      this.loadTracks()
+      this.playAudio()
+    }
   }
 
   stopAudio = () => {
@@ -54,12 +60,17 @@ export class AudioContextService {
     })
   }
 
+  checkIfLoading = () => this.isLoading
+
   updateAudioTrackSource = (trackOrder, filename) => {
+    this.stopAudio()
     var foundTrackNum = false
     this.tracks.forEach(track => {
       if(track.trackOrder === trackOrder) {
         foundTrackNum = true
         if(filename !== 'filename' && filename !== '') {
+          this.isLoading = true
+          console.log("loading...")
           fetch(`${this.url}/files/${filename}`)
             .then(response => response.arrayBuffer())
             .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
@@ -69,6 +80,8 @@ export class AudioContextService {
               track.node = bufferSource
               track.decodedData = decodedData
               track.filename = filename
+              this.isLoading = false
+              console.log("done loading!")
             })
         } else {
           track.filename = ''

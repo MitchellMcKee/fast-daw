@@ -1,4 +1,4 @@
-<div class="track-container">
+<div class="track-container" fxLayout="row">
   <mat-card fxLayout="row wrap" class="track-color">
     <div class="delete-btn-container">
       <button class="delete-track-btn" (click)="deleteTrack()">X</button>
@@ -12,7 +12,7 @@
       </div>
       <div *ngIf="editingTrackName">
         <mat-form-field appearance="standard">
-          <mat-label>Track Name</mat-label>
+          <mat-label></mat-label>
           <input matInput value={{trackName}} [(ngModel)]="trackName">
           <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
             <fa-icon [icon]="checkIcon"></fa-icon>
@@ -54,4 +54,7 @@
       </div>
     </div>
   </mat-card>
+  <div class="waveform">
+
+  </div>
 </div>
