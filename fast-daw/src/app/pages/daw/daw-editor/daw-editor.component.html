@@ -1,15 +1,6 @@
 <div class="header" fxLayout="row">
-  <app-logo></app-logo>
-  <button mat-icon-button class="open-menu-btn" (click)="toggleMenu()">
-    <fa-icon *ngIf="!openMenu" [icon]="barsIcon"></fa-icon>
-    <fa-icon *ngIf="openMenu" [icon]="chevronUpIcon"></fa-icon>
-  </button>
+
 </div>
-<!--
-<div *ngIf="openMenu" class="menu-sidebar">
-  <app-menu></app-menu>
-</div>
- -->
 
  <div class="info-text">
   <span class="info-text">
@@ -27,15 +18,17 @@
   <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
     Add Track
   </button>
+  <button class="add-track-btn" mat-raised-button matSuffix aria-label="Create Shareable Link">
+    Create Shareable Link
+  </button>
   <mat-card class="track-card-container" *ngFor="let track of tracks">
     <mat-card-content>
       <app-daw-track
-        [trackOrder]="track.trackOrder"
-        [trackName]="track.trackName"
+        [trackId]="track.trackId"
         [selectedFilename]="track.selectedFilename"
         [offset]="track.offset"
         [volume]="track.volume"
-        (deleteTrackEmitter)="deleteTrack(track.trackOrder)">
+        (deleteTrackEmitter)="deleteTrack(track.trackId)">
       </app-daw-track>
     </mat-card-content>
   </mat-card>

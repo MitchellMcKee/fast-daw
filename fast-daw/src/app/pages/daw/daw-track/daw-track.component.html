@@ -4,21 +4,6 @@
       <button class="delete-track-btn" (click)="deleteTrack()">X</button>
     </div>
     <div fxFlex="100%">
-      <div *ngIf="!editingTrackName">
-        <mat-label>{{trackName}}</mat-label>
-        <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
-          <fa-icon [icon]="editIcon"></fa-icon>
-        </button>
-      </div>
-      <div *ngIf="editingTrackName">
-        <mat-form-field appearance="standard">
-          <mat-label></mat-label>
-          <input matInput value={{trackName}} [(ngModel)]="trackName">
-          <button class="edit-btn" mat-button matSuffix mat-icon-button aria-label="Edit Track Title" (click)="editName()">
-            <fa-icon [icon]="checkIcon"></fa-icon>
-          </button>
-        </mat-form-field>
-      </div>
 
       <mat-form-field appearance="fill" class="select-source">
         <mat-label>Select an audio clip</mat-label>
@@ -33,19 +18,18 @@
       </mat-form-field>
 
       <div>
+        <button class="delete-src-btn" aria-label="Delete audio file from server" (click)="deleteTrackFromDatabase()">
+          Delete File from Server
+        </button>
+
+        Volume:
+        <mat-slider vertical min="0" max="1" step="0.01" [(ngModel)]="volume" (click)="changeVolume()"></mat-slider>
         <button class="mute-btn" aria-label="Mute button" (click)="mute()" *ngIf="!muted">
           <fa-icon [icon]="muteIcon"></fa-icon>
         </button>
         <button class="unmute-btn" aria-label="Unmute button" (click)="changeVolume()" *ngIf="muted">
           <fa-icon [icon]="volumeIcon"></fa-icon>
         </button>
-
-        <button class="delete-src-btn" aria-label="Delete audio file from server" (click)="deleteTrackFromDatabase()">
-          Delete File from Server
-        </button>
-
-        Volume:
-        <mat-slider min="0" max="1" step="0.01" [(ngModel)]="volume" (click)="changeVolume()"></mat-slider>
       </div>
       <div fxLayout="row">
         <span class="offset-label">Delay start by </span>

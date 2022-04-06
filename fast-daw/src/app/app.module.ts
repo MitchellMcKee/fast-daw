@@ -1,7 +1,6 @@
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AudioContextModule } from 'angular-audio-context';
-import { NgWaveformModule } from 'ng-waveform';
 
 // Styling
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,26 +31,16 @@ import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
 
 // UI Components
-import { YoutubeDownloadComponent } from './ui-components/youtube-download/youtube-download.component';
-import { YoutubeSearchComponent } from './ui-components/youtube-search/youtube-search.component';
 import { DawTrackComponent } from './pages/daw/daw-track/daw-track.component';
-import { LogoutComponent } from './ui-components/logout/logout.component';
 import { LogoComponent } from './ui-components/logo/logo.component';
-import { MenuComponent } from './ui-components/menu/menu.component';
-import { PlaybackControlsComponent } from './pages/daw/playback-controls/playback-controls.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    YoutubeDownloadComponent,
-    YoutubeSearchComponent,
     DawTrackComponent,
-    LogoutComponent,
-    LogoComponent,
-    MenuComponent,
-    PlaybackControlsComponent
+    LogoComponent
   ],
   imports: [
     BrowserModule,

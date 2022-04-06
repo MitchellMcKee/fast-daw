@@ -11,8 +11,7 @@ import { audioSource } from 'src/models/daw-editor.models';
 })
 export class DawTrackComponent implements OnInit {
 
-  @Input() trackOrder: number
-  @Input() trackName:string
+  @Input() trackId: number
   @Input() selectedFilename:string
   @Input() offset:number
   @Input() volume:number
@@ -53,16 +52,16 @@ export class DawTrackComponent implements OnInit {
 
   selectAudioTrack = () => {
     this.audioContextService.stopAudio()
-    this.audioContextService.updateAudioTrackSource(this.trackOrder, this.selectedFilename)
+    this.audioContextService.updateAudioTrackSource(this.trackId, this.selectedFilename)
   }
 
   changeVolume = () => {
-    this.audioContextService.updateAudioTrackGain(this.trackOrder, this.volume)
+    this.audioContextService.updateAudioTrackGain(this.trackId, this.volume)
     this.muted = false
   }
 
   mute = () => {
-    this.audioContextService.updateAudioTrackGain(this.trackOrder, 0)
+    this.audioContextService.updateAudioTrackGain(this.trackId, 0)
     this.muted = true
   }
 
@@ -71,19 +70,19 @@ export class DawTrackComponent implements OnInit {
       this.newOffset = 0
     }
     this.offset += (this.newOffset - this.offset)
-    this.audioContextService.setAudioTrackOffset(this.trackOrder, this.offset)
+    this.audioContextService.setAudioTrackOffset(this.trackId, this.offset)
   }
 
   deleteTrackFromDatabase = () => {
     if(this.selectedFilename !== '') {
       this.trackService.deleteTrack(this.selectedFilename)
       this.selectedFilename = ''
-      this.audioContextService.disconnectAudioTrack(this.trackOrder)
+      this.audioContextService.disconnectAudioTrack(this.trackId)
     }
   }
 
   deleteTrack = () => {
-    this.audioContextService.disconnectAudioTrack(this.trackOrder)
+    this.audioContextService.disconnectAudioTrack(this.trackId)
     this.deleteTrackEmitter.emit()
   }
 }

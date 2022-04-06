@@ -1,9 +1,9 @@
-/** 
+/**
  * an AudioTrack holds the data for needed in the service for
  * each of the tracks
  */
 export type AudioTrack = {
-    'trackOrder': number,
+    'trackId': number,
     'decodedData': AudioBuffer,
     'node': any,
     'filename': string,
@@ -15,8 +15,7 @@ export type AudioTrack = {
 
 // a UITrack contrains all the info needed to display a track on the DAW page
 export type UITrack = {
-    'trackOrder': number,
-    'trackName': string,
+    'trackId': number,
     'selectedFilename': string,
     'offset': number,
     'volume': number

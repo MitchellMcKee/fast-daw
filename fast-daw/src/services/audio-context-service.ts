@@ -32,6 +32,7 @@ export class AudioContextService {
   }
 
   stopAudio = () => {
+    console.log(this.tracks)
     this.tracks.forEach(track => {
       track.gainNode.disconnect()
       track.node.disconnect()
@@ -62,11 +63,11 @@ export class AudioContextService {
 
   checkIfLoading = () => this.isLoading
 
-  updateAudioTrackSource = (trackOrder, filename) => {
+  updateAudioTrackSource = (trackId, filename) => {
     this.stopAudio()
     var foundTrackNum = false
     this.tracks.forEach(track => {
-      if(track.trackOrder === trackOrder) {
+      if(track.trackId === trackId) {
         foundTrackNum = true
         if(filename !== 'filename' && filename !== '') {
           this.isLoading = true
@@ -89,14 +90,14 @@ export class AudioContextService {
       }
     })
     if(!foundTrackNum) {
-      this.addTrack(trackOrder)
-      this.updateAudioTrackSource(trackOrder, filename)
+      this.addTrack(trackId)
+      this.updateAudioTrackSource(trackId, filename)
     }
   }
 
-  private addTrack = (trackOrder) => {
-    var newTrack = {
-      'trackOrder': trackOrder,
+  private addTrack = (trackId) => {
+    var newTrack: AudioTrack = {
+      'trackId': trackId,
       'decodedData': this.audioContext.createBuffer(1, 1, 44100),
       'node': this.audioContext.createBufferSource(),
       'filename': 'filename',
@@ -107,33 +108,39 @@ export class AudioContextService {
     this.tracks.push(newTrack)
   }
 
-  setAudioTrackOffset = (trackOrder, newOffset) => {
+  setAudioTrackOffset = (trackId, newOffset) => {
     var foundTrackNum = false
     this.tracks.forEach(track => {
-      if(track.trackOrder === trackOrder) {
+      if(track.trackId === trackId) {
         foundTrackNum = true
         track.offset = newOffset
       }
     })
     if(!foundTrackNum) {
-      this.addTrack(trackOrder)
-      this.setAudioTrackOffset(trackOrder, newOffset)
+      this.addTrack(trackId)
+      this.setAudioTrackOffset(trackId, newOffset)
     }
   }
 
-  disconnectAudioTrack = (trackOrder) => {
+  disconnectAudioTrack = (trackId) => {
+    var indexToBeRemoved = -1
     this.tracks.forEach((track, trackIndex) => {
-      if(track.trackOrder === trackOrder) {
+      if(track.trackId === trackId) {
         track.gainNode.disconnect()
         track.node.disconnect()
+        indexToBeRemoved = trackIndex
       }
     })
+
+    if (indexToBeRemoved !== -1) {
+      this.tracks.splice(indexToBeRemoved, 1)
+    }
   }
 
-  deleteAudioTrack = (trackOrder) => {
+  deleteAudioTrack = (trackId) => {
     var trackToDelete = -1
     this.tracks.forEach((track, trackIndex) => {
-      if(track.trackOrder === trackOrder) {
+      if(track.trackId === trackId) {
         track.gainNode.disconnect()
         track.node.disconnect()
         trackToDelete = trackIndex
@@ -144,35 +151,19 @@ export class AudioContextService {
     }
   }
 
-  updateAudioTrackGain = (trackOrder, newGain) => {
+  updateAudioTrackGain = (trackId, newGain) => {
     var foundTrackNum = false
     this.tracks.forEach(track => {
-      if(track.trackOrder === trackOrder) {
+      if(track.trackId === trackId) {
         foundTrackNum = true
         track.gain = newGain
         track.gainNode.gain.value = track.gain
       }
     })
     if(!foundTrackNum) {
-      this.addTrack(trackOrder)
-      this.updateAudioTrackGain(trackOrder, newGain)
+      this.addTrack(trackId)
+      this.updateAudioTrackGain(trackId, newGain)
     }
-  }
-
-  createProjectFile = () => {
-    const projectFile = []
-    this.tracks.forEach(track => {
-      const trackToAdd = {
-        'trackOrder': track.trackOrder,
-        'decodedData': track.decodedData,
-        'trackName': "Track Name",
-        'selectedFilename': track.filename,
-        'offset': track.offset,
-        'volume': track.gain
-      }
-      projectFile.push(trackToAdd)
-    })
-    return projectFile
   }
 
   ngOnDestroy(): void {

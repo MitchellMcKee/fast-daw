@@ -43,6 +43,7 @@
     @include color(secondary, dark);
     @include default-btn();
     height: 32px;
+    width: 100%
   }
 
   .start-time-btns {
