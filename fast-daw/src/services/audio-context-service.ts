@@ -32,7 +32,6 @@ export class AudioContextService {
   }
 
   stopAudio = () => {
-    console.log(this.tracks)
     this.tracks.forEach(track => {
       track.gainNode.disconnect()
       track.node.disconnect()
@@ -71,7 +70,6 @@ export class AudioContextService {
         foundTrackNum = true
         if(filename !== 'filename' && filename !== '') {
           this.isLoading = true
-          console.log("loading...")
           fetch(`${this.url}/files/${filename}`)
             .then(response => response.arrayBuffer())
             .then(arrayBuffer => this.audioContext.decodeAudioData(arrayBuffer))
@@ -82,7 +80,6 @@ export class AudioContextService {
               track.decodedData = decodedData
               track.filename = filename
               this.isLoading = false
-              console.log("done loading!")
             })
         } else {
           track.filename = ''
