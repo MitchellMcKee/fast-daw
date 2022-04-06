@@ -77,12 +77,12 @@ export class DawTrackComponent implements OnInit {
     if(this.selectedFilename !== '') {
       this.trackService.deleteTrack(this.selectedFilename)
       this.selectedFilename = ''
-      this.audioContextService.disconnectAudioTrack(this.trackId)
+      this.audioContextService.deleteAudioTrack(this.trackId)
     }
   }
 
   deleteTrack = () => {
-    this.audioContextService.disconnectAudioTrack(this.trackId)
+    this.audioContextService.deleteAudioTrack(this.trackId)
     this.deleteTrackEmitter.emit()
   }
 }

@@ -22,25 +22,19 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 // Services
-import { YouTubeSearchService } from 'src/services/youtube-search-service';
-import { YouTubeDownloadService } from 'src/services/youtube-download-service';
 import { AudioContextService } from 'src/services/audio-context-service';
-import { UserService } from 'src/services/user-service';
 import { FileService } from 'src/services/file-service';
-import { ProjectService } from 'src/services/project-service';
 import { TrackService } from 'src/services/track-service';
 
 // UI Components
 import { DawTrackComponent } from './pages/daw/daw-track/daw-track.component';
-import { LogoComponent } from './ui-components/logo/logo.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    DawTrackComponent,
-    LogoComponent
+    DawTrackComponent
   ],
   imports: [
     BrowserModule,
@@ -63,12 +57,8 @@ import { LogoComponent } from './ui-components/logo/logo.component';
     AudioContextModule.forRoot('balanced')
   ],
   providers: [
-    YouTubeSearchService,
-    YouTubeDownloadService,
     AudioContextService,
-    UserService,
     FileService,
-    ProjectService,
     TrackService
   ],
   bootstrap: [AppComponent]

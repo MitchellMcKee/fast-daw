@@ -122,21 +122,6 @@ export class AudioContextService {
     }
   }
 
-  disconnectAudioTrack = (trackId) => {
-    var indexToBeRemoved = -1
-    this.tracks.forEach((track, trackIndex) => {
-      if(track.trackId === trackId) {
-        track.gainNode.disconnect()
-        track.node.disconnect()
-        indexToBeRemoved = trackIndex
-      }
-    })
-
-    if (indexToBeRemoved !== -1) {
-      this.tracks.splice(indexToBeRemoved, 1)
-    }
-  }
-
   deleteAudioTrack = (trackId) => {
     var trackToDelete = -1
     this.tracks.forEach((track, trackIndex) => {

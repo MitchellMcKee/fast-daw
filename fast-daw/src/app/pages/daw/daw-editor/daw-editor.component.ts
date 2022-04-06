@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AudioContextService } from 'src/services/audio-context-service';
+import { TrackService } from 'src/services/track-service';
+import { FileService } from 'src/services/file-service';
 import { HostListener } from "@angular/core";
-import { faPause, faStop, faPlay, faBars, faChevronUp} from '@fortawesome/free-solid-svg-icons';
+import { faPause, faStop, faPlay, faBars, faChevronUp, faUpload} from '@fortawesome/free-solid-svg-icons';
 import { UITrack } from 'src/models/daw-editor.models';
 
 
@@ -26,9 +28,12 @@ export class DawEditorComponent implements OnInit {
   pauseIcon = faPause
   playIcon = faPlay
   stopIcon = faStop
+  uploadIcon = faUpload
 
   constructor(
     private audioContextService: AudioContextService,
+    private fileService: FileService,
+    private trackService: TrackService,
     private route: ActivatedRoute
   ) { }
 
@@ -78,6 +83,25 @@ export class DawEditorComponent implements OnInit {
 
   playAudio = () => this.audioContextService.playAudio()
   pauseAudio = () => this.audioContextService.pauseAudio()
+
+  onFileChange = (event) => {
+    this.file = event.target.files[0]
+  }
+
+  uploadFile = () => {
+    if(this.verifyFileType()) {
+      const formData = new FormData()
+      formData.append('audioFile', this.file)
+      this.fileService.uploadFile(formData)
+        .then(response => {
+          this.trackService.addAudioSource(response)
+        })
+    } else {
+      console.log("file type is not mp3")
+    }
+  }
+
+  verifyFileType = () => this.file?.type === 'audio/mpeg'
 
   ngOnDestroy(): void {
     this.audioContextService.stopAudio()

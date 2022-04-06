@@ -14,37 +14,58 @@
     }
   }
 
-  .editing-name-container {
-    display: inline;
+  .delay-container {
+    margin-left: 8px;
+    padding-bottom: 12px;
   }
 
   .select-source {
     margin-top: 8px;
     margin-bottom: -8px;
+    width: 100%;
   }
 
-  .mute-btn {
-    @include color(white, dark);
-    @include default-btn();
-    height: 32px;
-    width: 32px;
-    margin: 4px 16px 4px 0;
+  .bottom-card-container {
+    display: flex;
+
+    .volume-adjacent-btns {
+      display: grid;
+      align-content: space-around;
+
+      .mute-btn {
+        @include color(white, dark);
+        @include default-btn();
+        height: 48px;
+        width: 56px;
+        margin: 4px 16px 4px 0;
+      }
+
+      .unmute-btn {
+        @include color(secondary, light);
+        @include default-btn();
+        height: 48px;
+        width: 56px;
+        margin: 4px 16px 4px 0;
+      }
+
+      .delete-src-btn {
+        @include color(secondary, dark);
+        @include default-btn();
+        height: 48px;
+        width: 56px;
+      }
+    }
+
+    .volume-container{
+      margin-right: 24px;
+
+      .volume-text {
+        margin-left: 16px;
+        margin-right: -4px;
+      }
+    }
   }
 
-  .unmute-btn {
-    @include color(secondary, light);
-    @include default-btn();
-    height: 32px;
-    width: 32px;
-    margin: 4px 16px 4px 0;
-  }
-
-  .delete-src-btn {
-    @include color(secondary, dark);
-    @include default-btn();
-    height: 32px;
-    width: 100%
-  }
 
   .start-time-btns {
     border: solid 1px rgba(0,0,0,.12);
