@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { TrackService } from 'src/services/track-service';
 import { FileService } from 'src/services/file-service';
-import { HostListener } from "@angular/core";
-import { faPause, faStop, faPlay, faBars, faChevronUp, faUpload} from '@fortawesome/free-solid-svg-icons';
-import { UITrack } from 'src/models/daw-editor.models';
+import { faPause, faStop, faPlay, faUpload} from '@fortawesome/free-solid-svg-icons';
+import { UITrack, audioSource } from 'src/models/daw-editor.models';
 
 
 @Component({
@@ -16,15 +15,12 @@ import { UITrack } from 'src/models/daw-editor.models';
 export class DawEditorComponent implements OnInit {
 
   tracks:UITrack[] = []
+  audioSources:audioSource[] = []
+  generatedLink:string = ''
   file:any
   currTrackNum:number = 0
   started:boolean = false
-  errorMessage:String = ''
-  screenWidth:number
-  openMenu:boolean = false
 
-  barsIcon = faBars
-  chevronUpIcon = faChevronUp
   pauseIcon = faPause
   playIcon = faPlay
   stopIcon = faStop
@@ -34,27 +30,64 @@ export class DawEditorComponent implements OnInit {
     private audioContextService: AudioContextService,
     private fileService: FileService,
     private trackService: TrackService,
-    private route: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.tracks = []
-    this.addTrack()
 
-    // Add check for shareable link parameters
-    // if(this.route.snapshot.paramMap.get('projectId')) {
-    //   this.projectId = this.route.snapshot.paramMap.get('projectId')
-    //   this.loadProject()
-    // }
+    if(this.router.url !== '/') {
+      this.preloadTracks(this.router.url.replace('/preload/', ''))
+    } else {
+      this.addTrack()
+    }
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event?) {
-    this.screenWidth = window.innerWidth;
+  updateAudioSources = () => {
+    this.trackService.findAllTracks()
+      .then(response => {
+        this.audioSources = response
+      })
+  }
+
+  preloadTracks = (preloadValues:string) => {
+    const trackValues = preloadValues.split('&')
+    console.log(trackValues)
+    for(let i = 0; i <= trackValues.length - 3; i += 3) {
+      let track: UITrack = {
+        "trackId": this.currTrackNum++,
+        "selectedFilename": trackValues[i],
+        "offset": 0,
+        "volume": 0.75
+      }
+      if(+trackValues[i + 1] > 0) {
+        track.offset = +trackValues[i+1]
+      }
+      if(+trackValues[i + 2] >= 0 && +trackValues[i + 2] <= 1) {
+        track.volume = +trackValues[i + 2]
+      }
+      this.tracks.push(track)
+    }
+  }
+
+  generateLink = () => {
+    // To do: change url to production url
+    let result = 'http://localhost:4200/preload/'
+    this.generatedLink = ''
+    if(this.tracks.length > 0) {
+      console.log(this.audioContextService.tracks)
+      this.audioContextService.tracks.forEach(track => {
+        result += track.filename + '&' + track.offset + '&' + track.gain + '&'
+      })
+      this.generatedLink = result
+    } else {
+      this.generatedLink = 'There are currently no tracks to save'
+    }
+    console.log(this.generatedLink)
   }
 
   addTrack = () => {
-    var track: UITrack = {
+    let track: UITrack = {
       "trackId": this.currTrackNum++,
       "selectedFilename": "filename",
       "offset": 0,
@@ -63,7 +96,7 @@ export class DawEditorComponent implements OnInit {
     this.tracks.push(track)
   }
 
-  deleteTrack = (trackId) => {
+  deleteTrack = (trackId:number) => {
     this.tracks = this.tracks.filter(track => track.trackId !== trackId)
   }
 

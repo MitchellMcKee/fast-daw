@@ -26,10 +26,11 @@
     <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
       Add Track
     </button>
-    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Create Shareable Link">
-      Placeholder for creating link
+    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Create Shareable Link" (click)="generateLink()">
+      Generate Shareable Link
     </button>
   </div>
+  <a [href]="generatedLink">{{generatedLink}}</a>
   <div class="tracks-container">
     <mat-card class="track-card-container" *ngFor="let track of tracks">
       <mat-card-content>
@@ -38,6 +39,7 @@
           [selectedFilename]="track.selectedFilename"
           [offset]="track.offset"
           [volume]="track.volume"
+          [audioSources]="audioSources"
           (deleteTrackEmitter)="deleteTrack(track.trackId)">
         </app-daw-track>
       </mat-card-content>

@@ -7,20 +7,6 @@ const url = serverUrl
 
 @Injectable()
 export class TrackService {
-  addTrack = (project) =>
-    fetch(`${url}/projectTracks`, {
-      "method": "POST",
-      "headers": {"Content-Type": "application/json"},
-      "body": JSON.stringify(project)
-    })
-      .then(response => response.json())
-      .catch(error => console.log("network error:" + error))
-
-  getTrack = (trackId) =>
-    fetch(`${url}/projectTracks/${trackId}`)
-      .then(response => response.json())
-      .catch(error => console.log("network error:" + error))
-
   findAllTracks = () =>
     fetch(`${url}/tracks`)
       .then(response => response.json())
@@ -29,15 +15,6 @@ export class TrackService {
   addAudioSource = (track) =>
     fetch(`${url}/tracks`, {
       "method": "POST",
-      "headers": {"Content-Type": "application/json"},
-      "body": JSON.stringify(track)
-    })
-      .then(response => response.json())
-      .catch(error => console.log("network error:" + error))
-
-  updateTrack = (trackId, track) =>
-    fetch(`${url}/${trackId}`, {
-      "method": "PUT",
       "headers": {"Content-Type": "application/json"},
       "body": JSON.stringify(track)
     })

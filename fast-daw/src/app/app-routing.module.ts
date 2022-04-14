@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DawEditorComponent } from './pages/daw/daw-editor/daw-editor.component';
 
 const routes: Routes = [
-  {path: '', component: DawEditorComponent}
-  // {path: 'daw/:projectId', component: DawEditorComponent}
+  {path: '', component: DawEditorComponent},
+  {path: 'preload/:preloadTrack', component: DawEditorComponent}
 ];
 
 @NgModule({
