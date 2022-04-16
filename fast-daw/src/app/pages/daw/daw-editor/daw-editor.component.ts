@@ -72,8 +72,8 @@ export class DawEditorComponent implements OnInit {
   }
 
   generateLink = () => {
-    // To do: change url to production url
-    let result = 'http://localhost:4200/preload/'
+    // localUrl - http://localhost:4200/preload/
+    let result = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/preload'
     this.generatedLink = ''
     if(this.tracks.length > 0) {
       console.log(this.audioContextService.tracks)
