@@ -15,13 +15,14 @@ export class DawTrackComponent implements OnInit {
   @Input() selectedFilename:string
   @Input() offset:number
   @Input() volume:number
+  @Input() audioSources:audioSource[] = []
 
   @Output() deleteTrackEmitter: EventEmitter<any> = new EventEmitter()
+  @Output() deleteFileEmitter: EventEmitter<any> = new EventEmitter()
 
   muted:boolean = false
   editingTrackName:boolean = false
   newOffset:number = 0
-  audioSources:audioSource[] = []
 
   muteIcon = faVolumeMute
   volumeIcon = faVolumeUp
@@ -34,18 +35,10 @@ export class DawTrackComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.updateAudioSources()
     this.selectAudioTrack()
     this.changeVolume()
     this.newOffset = this.offset
     this.changeOffset()
-  }
-
-  updateAudioSources = () => {
-    this.trackService.findAllTracks()
-      .then(response => {
-        this.audioSources = response
-      })
   }
 
   editName = () => this.editingTrackName = !this.editingTrackName
@@ -76,6 +69,7 @@ export class DawTrackComponent implements OnInit {
   deleteTrackFromDatabase = () => {
     if(this.selectedFilename !== '') {
       this.trackService.deleteTrack(this.selectedFilename)
+        .then(() => this.deleteFileEmitter.emit())
       this.selectedFilename = ''
       this.audioContextService.deleteAudioTrack(this.trackId)
     }

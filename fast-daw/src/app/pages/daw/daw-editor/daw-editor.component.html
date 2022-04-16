@@ -1,67 +1,71 @@
-<div class="upload" fxLayout="row">
-  <button class="menu-btn upload-btn" (click)="uploadFile()" mat-button aria-label="Upload File" >
-    <fa-icon [icon]="uploadIcon"></fa-icon>
-  </button>
-  <input type="file"
-        name="audioFile"
-        (change)="onFileChange($event)"
-        placeholder="File Upload"
-        class="upload-input" />
-</div>
+ <div class="fast-daw">
 
- <div class="info-text">
-  <span class="info-text">
-    Fast DAW is a web app used for asynchronous playback of multiple audio files.
-  </span>
-  <span class="info-text">
-    Choose/upload an audio file and set how long you want to delay the start of that track. Repeat this as many times as you like with additional tracks.
-  </span>
-  <span class="info-text">
-    Once everything is set, hit start at the bottom of the screen and enjoy! You adjust the volume of each individual track too!
-  </span>
-</div>
-
-<div class="editor">
-  <div class="header-btns">
-    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
-      Add Track
-    </button>
-    <button class="add-track-btn" mat-raised-button matSuffix aria-label="Create Shareable Link" (click)="generateLink()">
-      Generate Shareable Link
-    </button>
+   <div class="info-text">
+    <span class="info-text">
+      Fast DAW is a web app used for asynchronous playback of multiple audio files developed end-to-end by Mitchell McKee.
+      Select an audio file from the dropdown and set how long you want to delay the start of that track.
+      If you want to add your own audio, select an MP3 file from your computer and click the upload button.
+      Repeat this process with as many tracks as you like. Once everything is set, hit start at the bottom of the screen and enjoy!
+      You can adjust the volume of each individual track during playback too!
+    </span>
   </div>
-  <a [href]="generatedLink">{{generatedLink}}</a>
-  <div class="tracks-container">
-    <mat-card class="track-card-container" *ngFor="let track of tracks">
-      <mat-card-content>
-        <app-daw-track
-          [trackId]="track.trackId"
-          [selectedFilename]="track.selectedFilename"
-          [offset]="track.offset"
-          [volume]="track.volume"
-          [audioSources]="audioSources"
-          (deleteTrackEmitter)="deleteTrack(track.trackId)">
-        </app-daw-track>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <button *ngIf="tracks.length" class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
-    +
-  </button>
 
-  <div class="playback-btns-container">
-    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
-      start
+  <div class="upload" fxLayout="row">
+    <button class="upload-btn" (click)="uploadFile()" mat-button aria-label="Upload File" >
+      <fa-icon [icon]="uploadIcon"></fa-icon>
     </button>
-    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
-      <fa-icon [icon]="playIcon"></fa-icon>
-    </button>
-    <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
-      <fa-icon [icon]="pauseIcon"></fa-icon>
-    </button>
-    <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
-      <fa-icon [icon]="stopIcon"></fa-icon>
-    </button>
+    <input type="file"
+          name="audioFile"
+          (change)="onFileChange($event)"
+          placeholder="File Upload"
+          class="upload-input" />
   </div>
-</div>
 
+  <div class="editor">
+    <div class="header-btns">
+      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
+        Add Track
+      </button>
+      <button class="add-track-btn" mat-raised-button matSuffix aria-label="Create Shareable Link" (click)="generateLink()">
+        Generate Shareable Link
+      </button>
+    </div>
+    <div class="generated-link">
+      <a [href]="generatedLink">{{generatedLink}}</a>
+    </div>
+    <div class="tracks-container">
+      <mat-card class="track-card-container" *ngFor="let track of tracks">
+        <mat-card-content>
+          <app-daw-track
+            [trackId]="track.trackId"
+            [selectedFilename]="track.selectedFilename"
+            [offset]="track.offset"
+            [volume]="track.volume"
+            [audioSources]="audioSources"
+            (deleteTrackEmitter)="deleteTrack(track.trackId)"
+            (deleteFileEmitter)="updateAudioSources()">
+          </app-daw-track>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button *ngIf="tracks.length" class="add-track-btn" mat-raised-button matSuffix aria-label="Add Track" (click)="addTrack()">
+      +
+    </button>
+
+    <div class="playback-btns-container">
+      <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="startAudio()">
+        start
+      </button>
+      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="playAudio()">
+        <fa-icon [icon]="playIcon"></fa-icon>
+      </button>
+      <button class="play-btn" *ngIf="started" mat-raised-button matSuffix mat-icon-button aria-label="Play Audio" (click)="pauseAudio()">
+        <fa-icon [icon]="pauseIcon"></fa-icon>
+      </button>
+      <button class="play-btn" mat-raised-button matSuffix mat-icon-button aria-label="Stop Audio" (click)="stopAudio()">
+        <fa-icon [icon]="stopIcon"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+ </div>

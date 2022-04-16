@@ -4,7 +4,7 @@
       <button class="delete-track-btn" (click)="deleteTrack()">X</button>
       <mat-form-field appearance="fill" class="select-source">
         <mat-label>Select an audio clip</mat-label>
-        <mat-select [(ngModel)]="selectedFilename" name="audio source" (ngModelChange)="selectAudioTrack()" (click)="updateAudioSources()">
+        <mat-select [(ngModel)]="selectedFilename" name="audio source" (ngModelChange)="selectAudioTrack()">
           <mat-option value="">
             None
           </mat-option>

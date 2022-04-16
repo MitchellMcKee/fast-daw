@@ -35,6 +35,7 @@ export class DawEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.tracks = []
+    this.updateAudioSources()
 
     if(this.router.url !== '/') {
       this.preloadTracks(this.router.url.replace('/preload/', ''))
@@ -126,9 +127,8 @@ export class DawEditorComponent implements OnInit {
       const formData = new FormData()
       formData.append('audioFile', this.file)
       this.fileService.uploadFile(formData)
-        .then(response => {
-          this.trackService.addAudioSource(response)
-        })
+        .then(response => this.trackService.addAudioSource(response))
+        .then(() => this.updateAudioSources())
     } else {
       console.log("file type is not mp3")
     }

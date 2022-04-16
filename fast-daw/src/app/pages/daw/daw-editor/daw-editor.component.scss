@@ -1,7 +1,16 @@
 @import '../../../../styles/variables';
 
+.fast-daw {
+  margin: 8px 8px;
+}
+
 .upload {
   display: flex;
+  margin-bottom: 6px;
+
+  .upload-btn {
+    margin-right: 6px;
+  }
 
   .upload-input {
     padding-top: 6px;
@@ -10,14 +19,13 @@
 
 .info-text {
   display: block;
+  line-height: 24px;
+  max-width: 75%;
   margin-bottom: 6px;
 }
 
-.menu-sidebar {
-  position: absolute;
-  top: 48px;
-  right: 0px;
-  z-index: 1000;
+.generated-link {
+  margin-bottom: 6px;
 }
 
 .add-track-btn {
@@ -43,8 +51,8 @@
 .track-card-container {
   max-width: 252px;
   padding: 0;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  margin-right: 12px;
+  margin-bottom: 12px;
 }
 
 .tracks-container {
