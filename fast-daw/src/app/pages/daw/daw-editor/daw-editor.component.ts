@@ -106,13 +106,17 @@ export class DawEditorComponent implements OnInit {
   }
 
   addTrack = () => {
-    let track: UITrack = {
-      "trackId": this.currTrackNum++,
-      "selectedFilename": "filename",
-      "offset": 0,
-      "volume": 0.75
+    if(this.tracks.length < 16) {
+      let track: UITrack = {
+        "trackId": this.currTrackNum++,
+        "selectedFilename": "filename",
+        "offset": 0,
+        "volume": 0.75
+      }
+      this.tracks.push(track)
+    } else {
+      console.log(this.tracks)
     }
-    this.tracks.push(track)
   }
 
   deleteTrack = (trackId:number) => {
