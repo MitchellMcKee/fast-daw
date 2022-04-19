@@ -79,8 +79,8 @@ export class AudioContextService {
               track.node = bufferSource
               track.decodedData = decodedData
               track.filename = filename
-              this.isLoading = false
             })
+            .then(() => this.isLoading = false)
         } else {
           track.filename = ''
         }
