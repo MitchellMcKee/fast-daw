@@ -37,7 +37,8 @@
         Generate Shareable Link
       </button>
     </div>
-    <div class="generated-link">
+    <div *ngIf="hasGenerated" class="generated-link">
+      <button class="clipboard-btn" (click)="copyLink()"><fa-icon [icon]="clipboardIcon"></fa-icon></button>
       <a [href]="generatedLink">{{generatedLink}}</a>
     </div>
     <div class="tracks-container">

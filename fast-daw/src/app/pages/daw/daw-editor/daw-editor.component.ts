@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { AudioContextService } from 'src/services/audio-context-service';
 import { TrackService } from 'src/services/track-service';
 import { FileService } from 'src/services/file-service';
-import { faPause, faStop, faPlay, faUpload} from '@fortawesome/free-solid-svg-icons';
+import { faPause, faStop, faPlay, faUpload, faClipboard} from '@fortawesome/free-solid-svg-icons';
 import { UITrack, audioSource } from 'src/models/daw-editor.models';
 import { MatDialog } from '@angular/material/dialog';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DawEditorComponent implements OnInit {
   tracks:UITrack[] = []
   audioSources:audioSource[] = []
   generatedLink:string = ''
+  hasGenerated:boolean = false
   file:any
   currTrackNum:number = 0
   started:boolean = false
@@ -26,13 +28,15 @@ export class DawEditorComponent implements OnInit {
   playIcon = faPlay
   stopIcon = faStop
   uploadIcon = faUpload
+  clipboardIcon = faClipboard
 
   constructor(
     private audioContextService: AudioContextService,
     private fileService: FileService,
     private trackService: TrackService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private clipboard: Clipboard
   ) { }
 
   ngOnInit(): void {
@@ -91,10 +95,14 @@ export class DawEditorComponent implements OnInit {
         result += track.filename + '&' + track.offset + '&' + track.gain + '&'
       })
       this.generatedLink = result
+      this.hasGenerated = true
     } else {
       this.generatedLink = 'There are currently no tracks to save'
     }
-    console.log(this.generatedLink)
+  }
+
+  copyLink = () => {
+    this.clipboard.copy(this.generatedLink);
   }
 
   addTrack = () => {

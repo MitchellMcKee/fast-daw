@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 // Services
 import { AudioContextService } from 'src/services/audio-context-service';
@@ -56,6 +57,7 @@ import { DawTrackComponent } from './pages/daw/daw-track/daw-track.component';
     MatExpansionModule,
     FontAwesomeModule,
     MatDialogModule,
+    ClipboardModule,
     AudioContextModule.forRoot('balanced')
   ],
   providers: [
