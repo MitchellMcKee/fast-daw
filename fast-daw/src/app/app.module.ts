@@ -19,7 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Services
 import { AudioContextService } from 'src/services/audio-context-service';
@@ -54,6 +55,7 @@ import { DawTrackComponent } from './pages/daw/daw-track/daw-track.component';
     MatIconModule,
     MatExpansionModule,
     FontAwesomeModule,
+    MatDialogModule,
     AudioContextModule.forRoot('balanced')
   ],
   providers: [

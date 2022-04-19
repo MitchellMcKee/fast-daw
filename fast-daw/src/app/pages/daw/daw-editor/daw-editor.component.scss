@@ -1,60 +1,79 @@
-@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
 
 .fast-daw {
   margin: 8px 8px;
-}
 
-.upload {
-  display: flex;
-  margin-bottom: 6px;
+  .logo {
+    @include color(primary);
+    width: 180px;
+    height: 48px;
+    border-radius: 8px;
+    margin-bottom: 8px;
 
-  .upload-btn {
-    margin-right: 6px;
+    .logo-text {
+      @include text-color(dark);
+      display: flex;
+      justify-content: center;
+      font-weight: 575;
+      font-size: 24px;
+      padding-top: 14px;
+    }
   }
 
-  .upload-input {
-    padding-top: 6px;
+  .upload {
+    display: flex;
+    margin-bottom: 6px;
+
+    .upload-btn {
+      margin-right: 6px;
+      border: solid 1px $theme-light;
+      border-radius: 8px;
+    }
+
+    .upload-input {
+      padding-top: 6px;
+    }
   }
-}
 
-.info-text {
-  display: block;
-  line-height: 24px;
-  max-width: 75%;
-  margin-bottom: 6px;
-}
+  .info-text {
+    display: block;
+    line-height: 24px;
+    max-width: 75%;
+    margin-bottom: 6px;
+  }
 
-.generated-link {
-  margin-bottom: 6px;
-}
+  .generated-link {
+    margin-bottom: 6px;
+  }
 
-.add-track-btn {
-  @include color(tertiary, light);
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
+  .add-track-btn {
+    @include color(tertiary, light);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
 
-.playback-btns-container {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 999;
-}
+  .playback-btns-container {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+  }
 
-.play-btn {
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
+  .play-btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
 
-.track-card-container {
-  max-width: 252px;
-  padding: 0;
-  margin-right: 12px;
-  margin-bottom: 12px;
-}
+  .track-card-container {
+    max-width: 252px;
+    padding: 0;
+    margin-right: 12px;
+    margin-bottom: 12px;
+  }
 
-.tracks-container {
-  display: flex;
+  .tracks-container {
+    display: flex;
+  }
 }

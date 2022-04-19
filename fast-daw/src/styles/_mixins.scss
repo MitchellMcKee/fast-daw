@@ -1,0 +1,50 @@
+@import './variables';
+
+@mixin color($background: primary, $color: none) {
+  @if ($background == primary) {
+    background: $theme-primary;
+  }
+
+  @if ($background == secondary) {
+    background: $theme-secondary;
+  }
+
+  @if ($background == tertiary) {
+    background: $theme-tertiary;
+  }
+
+  @if ($background == white) {
+    background: $theme-light;
+  }
+
+  @if ($color == light) {
+    color: $theme-light;
+  }
+
+  @if ($color == dark) {
+    color: $theme-dark;
+  }
+}
+
+@mixin text-color($color: light) {
+  @if ($color == primary) {
+    color: $theme-primary;
+  }
+
+  @if ($color == secondary) {
+    color: $theme-secondary;
+  }
+
+  @if ($color == light) {
+    color: $theme-light;
+  }
+
+  @if ($color == dark) {
+    color: $theme-dark;
+  }
+}
+
+@mixin default-btn() {
+  border: 1px solid $theme-dark;
+  border-radius: 4px;
+}

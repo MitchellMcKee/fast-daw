@@ -1,48 +1,6 @@
-@mixin color($background: primary, $color: none) {
-  @if ($background == primary) {
-    background: #6ac7da;
-  }
-
-  @if ($background == secondary) {
-    background: #ff75a4;
-  }
-
-  @if ($background == tertiary) {
-    background: #85c575;
-  }
-
-  @if ($background == white) {
-    background: #f5f5f5;
-  }
-
-  @if ($color == light) {
-    color: #f5f5f5;
-  }
-
-  @if ($color == dark) {
-    color: rgba(0, 0, 0, 0.87);
-  }
-}
-
-@mixin text-color($color: light) {
-  @if ($color == primary) {
-    color: #6ac7da;
-  }
-
-  @if ($color == secondary) {
-    color: #ff75a4;
-  }
-
-  @if ($color == light) {
-    color: #f5f5f5;
-  }
-
-  @if ($color == dark) {
-    color: rgba(0, 0, 0, 0.87);
-  }
-}
-
-@mixin default-btn() {
-  border: 1px solid rgba(0, 0, 0, 0.87);
-  border-radius: 4px;
-}
+// Theme Colors
+$theme-primary: #6ac7da;
+$theme-secondary: #ff75a4;
+$theme-tertiary: #85c575;
+$theme-light: #f5f5f5;
+$theme-dark: rgba(0, 0, 0, 0.87);

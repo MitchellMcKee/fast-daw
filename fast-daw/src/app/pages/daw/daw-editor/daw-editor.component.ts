@@ -5,6 +5,7 @@ import { TrackService } from 'src/services/track-service';
 import { FileService } from 'src/services/file-service';
 import { faPause, faStop, faPlay, faUpload} from '@fortawesome/free-solid-svg-icons';
 import { UITrack, audioSource } from 'src/models/daw-editor.models';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class DawEditorComponent implements OnInit {
     private audioContextService: AudioContextService,
     private fileService: FileService,
     private trackService: TrackService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -71,9 +73,17 @@ export class DawEditorComponent implements OnInit {
     }
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(LoadingMessageDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   generateLink = () => {
     // localUrl - http://localhost:4200/preload/
-    let result = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/preload'
+    let result = 'http://ec2-18-216-125-59.us-east-2.compute.amazonaws.com/preload/'
     this.generatedLink = ''
     if(this.tracks.length > 0) {
       console.log(this.audioContextService.tracks)
@@ -107,6 +117,8 @@ export class DawEditorComponent implements OnInit {
     if (!this.audioContextService.checkIfLoading()) {
       this.audioContextService.startAudio()
       this.started = true
+    } else {
+      this.openDialog()
     }
   }
 
@@ -140,3 +152,9 @@ export class DawEditorComponent implements OnInit {
     this.audioContextService.stopAudio()
   }
 }
+
+@Component({
+  selector: 'loading-message-dialog',
+  templateUrl: './loading-message-dialog.html',
+})
+export class LoadingMessageDialog {}
