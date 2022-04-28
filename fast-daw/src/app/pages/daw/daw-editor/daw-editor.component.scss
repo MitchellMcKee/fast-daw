@@ -34,7 +34,7 @@
     margin-bottom: 6px;
 
     .upload-btn {
-      margin-right: 6px;
+      margin-right: 8px;
       border: solid 1px $theme-light;
       border-radius: 8px;
     }
@@ -50,6 +50,7 @@
     margin-right: 6px;
     border: solid 1px $theme-light;
     border-radius: 8px;
+    cursor: pointer;
   }
 
   .generated-link {
